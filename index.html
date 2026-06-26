@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="assets/agizze-symbol-orange.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <style>
   :root{
     /* ===== PALETA OFICIAL AGIZZE (hex obrigatórios — manual de marca) ===== */
@@ -40,7 +40,7 @@
   body{font-family:'Outfit',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{text-decoration:none;color:inherit}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
-  .script{font-family:'Caveat',cursive;font-weight:700}
+  .script{font-weight:700;letter-spacing:.16em;text-transform:uppercase}
 
   .btn{display:inline-flex;align-items:center;gap:9px;background:var(--brand);color:#fff;font-weight:700;font-size:1.02rem;padding:15px 30px;border-radius:12px;border:none;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s;box-shadow:0 8px 26px rgba(232,127,24,.34)}
   .btn:hover{transform:translateY(-2px);background:var(--brand-dark);box-shadow:0 12px 36px rgba(232,127,24,.5)}
@@ -67,7 +67,7 @@
       radial-gradient(520px 320px at 8% 110%,rgba(19,65,132,.25),transparent 60%)}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
   @media(max-width:920px){.hero-grid{grid-template-columns:1fr;gap:38px}}
-  .tagline{font-family:'Caveat',cursive;font-weight:700;color:var(--brand-2);font-size:1.8rem;line-height:1;margin-bottom:14px}
+  .tagline{font-weight:700;color:var(--brand-2);font-size:.92rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
   .pill{display:inline-flex;align-items:center;gap:8px;font-size:.83rem;font-weight:600;color:var(--brand-2);background:var(--brand-soft);border:1px solid rgba(232,127,24,.25);padding:7px 16px;border-radius:999px;margin-bottom:20px}
   .pill .d{width:7px;height:7px;border-radius:50%;background:var(--brand);box-shadow:0 0 10px var(--brand)}
   h1{font-size:clamp(2.3rem,5.6vw,3.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.05;margin-bottom:22px}
@@ -76,6 +76,16 @@
   .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
   .trust{margin-top:28px;display:flex;gap:24px;flex-wrap:wrap;color:var(--muted);font-size:.92rem}
   .trust b{color:var(--text)}
+  .scarce{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-size:.92rem;font-weight:600;color:#ffdcc2;background:rgba(232,127,24,.14);border:1px solid rgba(232,127,24,.45);padding:10px 16px;border-radius:10px}
+  .scarce .pulse{width:8px;height:8px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 0 rgba(232,127,24,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,127,24,.55)}70%{box-shadow:0 0 0 9px rgba(232,127,24,0)}100%{box-shadow:0 0 0 0 rgba(232,127,24,0)}}
+  .scarce-box{max-width:680px;margin:0 auto 4px;text-align:center;background:rgba(232,127,24,.1);border:1px solid rgba(232,127,24,.4);border-radius:14px;padding:18px 22px;color:#ffe0cb;font-size:.98rem}
+  .scarce-box b{color:#fff}
+  /* DESIRE */
+  .desire .card{display:flex;gap:14px;align-items:flex-start}
+  .desire .card .dk{color:var(--brand-2);font-size:1.3rem;flex:0 0 auto;line-height:1.2}
+  .desire .card b{display:block;font-size:1.05rem;margin-bottom:4px}
+  .desire .card span{color:var(--muted);font-size:.95rem}
 
   .hero-card{background:linear-gradient(165deg,var(--card),#0f1d33);border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:0 30px 70px rgba(0,0,0,.4)}
   .hero-card h3{font-size:1.12rem;margin-bottom:6px;font-weight:700}
@@ -103,7 +113,7 @@
 
   /* PROPÓSITO band */
   .purpose{text-align:center}
-  .purpose .script{color:var(--brand-2);font-size:1.7rem;display:block;margin-bottom:10px}
+  .purpose .script{color:var(--brand-2);font-size:.9rem;display:block;margin-bottom:16px}
   .purpose p{font-size:clamp(1.4rem,3.4vw,2.15rem);font-weight:800;letter-spacing:-.02em;max-width:900px;margin:0 auto;line-height:1.28}
   .purpose p em{color:var(--brand);font-style:normal}
 
@@ -190,7 +200,7 @@
   /* FINAL */
   .final{text-align:center;position:relative;overflow:hidden}
   .final::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(560px 280px at 50% 120%,rgba(232,127,24,.18),transparent 60%)}
-  .final .script{color:var(--brand-2);font-size:1.7rem;display:block;margin-bottom:8px}
+  .final .script{color:var(--brand-2);font-size:.9rem;display:block;margin-bottom:14px}
 
   /* FOOTER */
   footer{background:var(--ink-2);color:var(--muted);padding:44px 0;border-top:1px solid var(--line);font-size:.88rem}
@@ -198,7 +208,7 @@
   footer .flogo{height:28px;width:auto}
   footer .fmeta{display:flex;gap:18px;align-items:center}
   footer .fmeta a:hover{color:var(--brand-2)}
-  footer .script{color:var(--brand-2);font-size:1.25rem}
+  footer .script{color:var(--brand-2);font-size:.92rem;letter-spacing:.18em;text-transform:uppercase}
 
   /* WhatsApp float */
   .wa-float{position:fixed;right:20px;bottom:20px;z-index:80;width:60px;height:60px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 10px 30px rgba(37,211,102,.45);transition:transform .15s}
@@ -233,6 +243,7 @@
         <a href="#proposta" class="btn">Quero resolver minha operação →</a>
         <a href="https://wa.me/5547996558404?text=Ol%C3%A1!%20Quero%20que%20a%20Agizze%20cuide%20das%20equipes%20da%20minha%20opera%C3%A7%C3%A3o%20log%C3%ADstica." target="_blank" rel="noopener" class="btn btn-wa">Falar no WhatsApp</a>
       </div>
+      <div class="scarce"><span class="pulse"></span> Iniciamos um número limitado de novas operações por mês — garanta a sua implantação.</div>
       <div class="trust">
         <div>⏱️ Operação no ar em <b>7 dias</b></div>
         <div>📍 Presença <b>em campo</b></div>
@@ -312,14 +323,33 @@
 <!-- DOR -->
 <section id="dor">
   <div class="wrap">
-    <div class="eyebrow">Por que chamar a Agizze</div>
-    <h2>Operação parada e gente errada <em>custam caro</em></h2>
-    <p class="lead">Rotatividade alta, vaga operacional difícil de preencher em câmara fria, escala apertada e prazo curto. Cada falha trava o giro e pesa no caixa.</p>
+    <div class="eyebrow">A real da sua operação</div>
+    <h2>Toda vaga aberta é <em>dinheiro saindo</em> do seu caixa</h2>
+    <p class="lead">Linha parada por falta de gente. Hora extra estourando o orçamento. Cliente cobrando, time esgotado e você apagando incêndio às 22h. Enquanto a vaga não fecha, a conta só cresce — e a cobrança sobra pra você.</p>
     <div class="pain-list">
-      <div class="pain-item"><span class="x">✕</span><span>Falta de gente em períodos críticos, parando a operação logística</span></div>
-      <div class="pain-item"><span class="x">✕</span><span>Dificuldade de preencher vagas frias e de escala difícil em prazo curto</span></div>
-      <div class="pain-item"><span class="x">✕</span><span>Rotatividade alta e fornecedor que some na hora crítica</span></div>
-      <div class="pain-item"><span class="x">✕</span><span>Risco jurídico, falhas de SLA e passivo trabalhista escondido</span></div>
+      <div class="pain-item"><span class="x">✕</span><span>Falta de gente no pico — e o cliente interno cobrando você</span></div>
+      <div class="pain-item"><span class="x">✕</span><span>Vaga de câmara fria e escala difícil que ninguém preenche no prazo</span></div>
+      <div class="pain-item"><span class="x">✕</span><span>Rotatividade alta queimando dinheiro com treinamento e desligamento</span></div>
+      <div class="pain-item"><span class="x">✕</span><span>Fornecedor que some na hora crítica e te deixa na mão</span></div>
+      <div class="pain-item"><span class="x">✕</span><span>Risco jurídico e passivo trabalhista escondido tirando o seu sono</span></div>
+      <div class="pain-item"><span class="x">✕</span><span>Você refém do operacional, sem tempo para o que faz a empresa crescer</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DESEJO -->
+<section class="desire" style="background:var(--ink-2)">
+  <div class="wrap">
+    <div class="eyebrow">Como é ter a Agizze do seu lado</div>
+    <h2>Imagine a operação rodando — <em>e você, tranquilo</em></h2>
+    <p class="lead">Terceirização boa é a que te faz dormir tranquilo. Equipe completa, picos cobertos, jurídico blindado — e a Agizze presente, sem você precisar reger ninguém.</p>
+    <div class="grid grid-3">
+      <div class="card"><span class="dk">😴</span><div><b>Você dorme tranquilo</b><span>Escala fechada, faltas cobertas e substituições rápidas. Acabou o apagar incêndio.</span></div></div>
+      <div class="card"><span class="dk">📈</span><div><b>A operação não para</b><span>Gente certa em campo no ritmo da sua demanda — picos e sazonalidade absorvidos.</span></div></div>
+      <div class="card"><span class="dk">🛡️</span><div><b>Seu nome blindado</b><span>Processos formalizados e SLA cumprido. Zero ruído jurídico, zero surpresa.</span></div></div>
+      <div class="card"><span class="dk">🤝</span><div><b>Um parceiro presente</b><span>Ponto de Controle quinzenal no WhatsApp. Você não cobra — a gente antecipa.</span></div></div>
+      <div class="card"><span class="dk">🎯</span><div><b>Foco no que importa</b><span>Deixe a gestão de pessoas com a gente e volte a cuidar da estratégia.</span></div></div>
+      <div class="card"><span class="dk">⚡</span><div><b>Velocidade real</b><span>Resposta em 24h, operação no ar em 7 dias, reposição em 48h. Sem enrolação.</span></div></div>
     </div>
   </div>
 </section>
@@ -432,9 +462,10 @@
   <div class="wrap center">
     <div class="eyebrow">Vamos resolver juntos</div>
     <h2>Chamou? <em>A gente agizza.</em></h2>
-    <p class="lead center">Conte o que sua operação precisa. A gente volta com uma proposta sob medida em até <strong>24h úteis</strong>.</p>
-    <div class="hero-actions" style="justify-content:center;margin-top:24px">
-      <a href="https://wa.me/5547996558404?text=Ol%C3%A1!%20Quero%20uma%20proposta%20da%20Agizze%20para%20a%20minha%20opera%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-wa">Prefiro pelo WhatsApp</a>
+    <p class="lead center">Conte o que sua operação precisa. A gente volta com uma proposta sob medida em até <strong>24h úteis</strong> — sem compromisso.</p>
+    <div class="scarce-box" style="margin-top:26px">⚠ <b>Vagas de implantação limitadas neste mês.</b> Para manter o padrão de presença em campo, iniciamos um número limitado de novas operações por mês. Garanta a sua antes que fechem.</div>
+    <div class="hero-actions" style="justify-content:center;margin-top:18px">
+      <a href="https://wa.me/5547996558404?text=Ol%C3%A1!%20Quero%20garantir%20uma%20vaga%20de%20implanta%C3%A7%C3%A3o%20da%20Agizze%20para%20a%20minha%20opera%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-wa">Quero garantir minha vaga →</a>
     </div>
 
     <div class="formwrap">
@@ -468,9 +499,10 @@
 <section class="final">
   <div class="wrap">
     <span class="script">Oportunidades que movem histórias</span>
-    <h2>Cada oportunidade transforma <em>vidas e negócios</em></h2>
-    <p class="lead center" style="margin-bottom:30px">Deixe sua operação com quem está ao seu lado — com presença, agilidade e resultado. De A a Z.</p>
-    <a href="#proposta" class="btn">Chamar a Agizze →</a>
+    <h2>Enquanto você decide, a vaga <em>continua aberta</em></h2>
+    <p class="lead center" style="margin-bottom:14px">Cada dia parado custa caro. Deixe sua operação com quem está ao seu lado — presença, agilidade e resultado, de A a Z.</p>
+    <p class="lead center" style="margin-bottom:30px;color:var(--brand-2);font-weight:600">Vagas de implantação limitadas neste mês.</p>
+    <a href="#proposta" class="btn">Quero minha proposta agora →</a>
   </div>
 </section>
 
@@ -479,7 +511,7 @@
     <div class="ftop">
       <img class="flogo" src="assets/agizze-logo-white.png" alt="Agizze" />
       <div class="fmeta">
-        <a href="https://instagram.com/agizzegestao" target="_blank" rel="noopener">@agizzegestao</a>
+        <a href="https://instagram.com/agizzerh" target="_blank" rel="noopener">@agizzerh</a>
         <a href="https://wa.me/5547996558404" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
