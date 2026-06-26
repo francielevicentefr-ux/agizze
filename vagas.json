@@ -1,0 +1,72 @@
+{
+  "_aviso": "DADOS DE EXEMPLO — substituir pelo feed do sistema Agizze. Veja o contrato em PORTAL-VAGAS.md.",
+  "atualizado_em": "2026-06-26",
+  "vagas": [
+    {
+      "id": "AGZ-001",
+      "titulo": "Auxiliar de Câmara Fria",
+      "cidade": "Itajaí",
+      "uf": "SC",
+      "area": "Câmara fria",
+      "tipo": "CLT",
+      "turno": "Escala 12x36",
+      "descricao": "Atuação em ambiente refrigerado: movimentação, organização e apoio à operação logística. Vale-transporte, vale-refeição e adicional de frio.",
+      "publicada_em": "2026-06-24"
+    },
+    {
+      "id": "AGZ-002",
+      "titulo": "Separador de Mercadorias",
+      "cidade": "Navegantes",
+      "uf": "SC",
+      "area": "Separação e picking",
+      "tipo": "CLT",
+      "turno": "Diurno",
+      "descricao": "Separação e conferência de pedidos com coletor, organização de paletes e apoio à expedição. Experiência em logística é diferencial.",
+      "publicada_em": "2026-06-23"
+    },
+    {
+      "id": "AGZ-003",
+      "titulo": "Conferente de Logística",
+      "cidade": "Itapema",
+      "uf": "SC",
+      "area": "Conferência",
+      "tipo": "CLT",
+      "turno": "Noturno",
+      "descricao": "Conferência de cargas na entrada e saída, controle de divergências e registro no sistema. Atenção a detalhes e organização.",
+      "publicada_em": "2026-06-22"
+    },
+    {
+      "id": "AGZ-004",
+      "titulo": "Ajudante de Carga e Descarga",
+      "cidade": "Balneário Camboriú",
+      "uf": "SC",
+      "area": "Carga e descarga",
+      "tipo": "Temporário",
+      "turno": "Diurno",
+      "descricao": "Carga e descarga de caminhões, movimentação de volumes e apoio geral à operação. Vaga temporária com chance de efetivação.",
+      "publicada_em": "2026-06-21"
+    },
+    {
+      "id": "AGZ-005",
+      "titulo": "Auxiliar de Logística",
+      "cidade": "Brusque",
+      "uf": "SC",
+      "area": "Auxiliar de logística",
+      "tipo": "CLT",
+      "turno": "Escala 6x1",
+      "descricao": "Apoio às rotinas do armazém: recebimento, armazenagem, separação e expedição. Ambiente dinâmico e em crescimento.",
+      "publicada_em": "2026-06-20"
+    },
+    {
+      "id": "AGZ-006",
+      "titulo": "Operador de Empilhadeira",
+      "cidade": "Joinville",
+      "uf": "SC",
+      "area": "Carga e descarga",
+      "tipo": "CLT",
+      "turno": "Diurno",
+      "descricao": "Operação de empilhadeira na movimentação de paletes e cargas. Necessária certificação válida de operador.",
+      "publicada_em": "2026-06-19"
+    }
+  ]
+}
