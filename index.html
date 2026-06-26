@@ -3,48 +3,56 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Agizze — Chamou, a gente agizza. Equipes operacionais com presença e resultado</title>
-<meta name="description" content="A Agizze cuida das suas equipes operacionais de A a Z: recrutamento e seleção, terceirização, cobertura de faltas e picos, presença em campo e acompanhamento contínuo. Chamou, a gente agizza." />
-<meta property="og:title" content="Agizze — Chamou, a gente agizza" />
-<meta property="og:description" content="Transformar vidas e negócios conectando pessoas a oportunidades de trabalho — com agilidade, humanidade e compromisso." />
+<title>Agizze — Oportunidades que movem histórias | Terceirização logística e R&S</title>
+<meta name="description" content="Agizze: terceirização logística e recrutamento & seleção com agilidade real. Vagas operacionais (câmara fria, separação, conferência) preenchidas em até 7 dias, presença em campo e acompanhamento contínuo. Chamou, a gente agizza." />
+<meta property="og:title" content="Agizze — Oportunidades que movem histórias" />
+<meta property="og:description" content="Terceirização logística e R&S com agilidade real, presença em campo e acompanhamento. Transformamos vidas e negócios." />
 <meta property="og:type" content="website" />
+<meta property="og:image" content="assets/agizze-logo-orange.png" />
+<link rel="icon" type="image/png" href="assets/agizze-symbol-orange.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    /* Cores da marca Agizze (manual KTARZE: energia + sobriedade) */
-    --brand:#FF5A1F;        /* laranja — energia, movimento */
-    --brand-2:#FF7A3C;
-    --brand-dark:#E0451A;
-    --brand-soft:rgba(255,90,31,.12);
-    --ink:#0A0E17;          /* azul-marinho quase preto — sobriedade */
-    --ink-2:#0F1420;
-    --card:#131926;
-    --line:#222b3c;
-    --text:#f2f4f8;
-    --muted:#99a3b5;
+    /* ===== PALETA OFICIAL AGIZZE (hex obrigatórios — manual de marca) ===== */
+    --brand:#E87F18;        /* Laranja Intenso — PRIMÁRIA (CTA, logo, destaques) */
+    --brand-2:#FD8F3A;      /* Laranja Vibrante — hover, gradientes, acentos */
+    --brand-dark:#cf6f10;
+    --brand-soft:rgba(232,127,24,.12);
+    --azul-profundo:#1A2A42; /* dark surfaces */
+    --azul-noturno:#0C1726;  /* background dark mode */
+    --azul-vivo:#134184;     /* links, destaque secundário */
+    --cinza:#E3E3E3;
+    --preto:#171717;
+
+    --ink:var(--azul-noturno);
+    --ink-2:#10203a;
+    --card:#16263f;
+    --line:#27384f;
+    --text:#f2f5fa;
+    --muted:#9fabbd;
     --radius:16px;
     --max:1120px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{font-family:'Outfit',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{text-decoration:none;color:inherit}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .script{font-family:'Caveat',cursive;font-weight:700}
 
-  .btn{display:inline-flex;align-items:center;gap:9px;background:var(--brand);color:#fff;font-weight:800;font-size:1.02rem;padding:15px 30px;border-radius:12px;border:none;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s;box-shadow:0 8px 26px rgba(255,90,31,.34)}
-  .btn:hover{transform:translateY(-2px);background:var(--brand-dark);box-shadow:0 12px 36px rgba(255,90,31,.5)}
+  .btn{display:inline-flex;align-items:center;gap:9px;background:var(--brand);color:#fff;font-weight:700;font-size:1.02rem;padding:15px 30px;border-radius:12px;border:none;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s;box-shadow:0 8px 26px rgba(232,127,24,.34)}
+  .btn:hover{transform:translateY(-2px);background:var(--brand-dark);box-shadow:0 12px 36px rgba(232,127,24,.5)}
   .btn-wa{background:#25D366;box-shadow:0 8px 26px rgba(37,211,102,.3)}
   .btn-wa:hover{background:#1eb858;box-shadow:0 12px 36px rgba(37,211,102,.45)}
   .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none}
-  .btn-ghost:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-2px);background:transparent}
+  .btn-ghost:hover{border-color:var(--brand);color:var(--brand-2);transform:translateY(-2px);background:transparent}
 
   /* NAV */
-  header.nav{position:sticky;top:0;z-index:50;background:rgba(10,14,23,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
-  .logo{font-weight:900;font-size:1.5rem;letter-spacing:-.04em;color:#fff;font-style:italic}
-  .logo b{color:var(--brand);font-style:italic}
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(12,23,38,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .nav-logo{height:30px;width:auto;display:block}
   .nav-links{display:flex;gap:26px;align-items:center}
   .nav-links a{color:var(--muted);font-weight:500;font-size:.95rem}
   .nav-links a:hover{color:var(--text)}
@@ -52,24 +60,25 @@
   @media(max-width:880px){.nav-links a:not(.nav-cta){display:none}}
 
   /* HERO */
-  .hero{position:relative;padding:90px 0 78px;overflow:hidden}
+  .hero{position:relative;padding:88px 0 76px;overflow:hidden}
   .hero::before{content:"";position:absolute;inset:0;z-index:-1;
     background:
-      radial-gradient(700px 380px at 82% -6%,rgba(255,90,31,.22),transparent 62%),
-      radial-gradient(520px 320px at 8% 110%,rgba(255,90,31,.08),transparent 60%)}
+      radial-gradient(720px 380px at 82% -6%,rgba(232,127,24,.20),transparent 62%),
+      radial-gradient(520px 320px at 8% 110%,rgba(19,65,132,.25),transparent 60%)}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
   @media(max-width:920px){.hero-grid{grid-template-columns:1fr;gap:38px}}
-  .pill{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;font-weight:700;color:var(--brand-2);background:var(--brand-soft);border:1px solid rgba(255,90,31,.25);padding:7px 16px;border-radius:999px;margin-bottom:24px}
+  .tagline{font-family:'Caveat',cursive;font-weight:700;color:var(--brand-2);font-size:1.8rem;line-height:1;margin-bottom:14px}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:.83rem;font-weight:600;color:var(--brand-2);background:var(--brand-soft);border:1px solid rgba(232,127,24,.25);padding:7px 16px;border-radius:999px;margin-bottom:20px}
   .pill .d{width:7px;height:7px;border-radius:50%;background:var(--brand);box-shadow:0 0 10px var(--brand)}
-  h1{font-size:clamp(2.3rem,5.6vw,3.9rem);font-weight:900;letter-spacing:-.035em;line-height:1.04;margin-bottom:22px}
-  h1 .hl{color:var(--brand);font-style:italic}
-  .sub{font-size:clamp(1.05rem,2.2vw,1.26rem);color:var(--muted);margin-bottom:34px;max-width:580px}
+  h1{font-size:clamp(2.3rem,5.6vw,3.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.05;margin-bottom:22px}
+  h1 .hl{color:var(--brand)}
+  .sub{font-size:clamp(1.05rem,2.2vw,1.25rem);color:var(--muted);margin-bottom:34px;max-width:580px}
   .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
   .trust{margin-top:28px;display:flex;gap:24px;flex-wrap:wrap;color:var(--muted);font-size:.92rem}
   .trust b{color:var(--text)}
 
-  .hero-card{background:linear-gradient(165deg,var(--card),#0d121d);border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:0 30px 70px rgba(0,0,0,.4)}
-  .hero-card h3{font-size:1.12rem;margin-bottom:6px}
+  .hero-card{background:linear-gradient(165deg,var(--card),#0f1d33);border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:0 30px 70px rgba(0,0,0,.4)}
+  .hero-card h3{font-size:1.12rem;margin-bottom:6px;font-weight:700}
   .hero-card .az{font-size:.8rem;color:var(--brand-2);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px}
   .step{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line)}
   .step:last-child{border-bottom:none}
@@ -77,24 +86,32 @@
   .step b{display:block;font-size:.98rem}
   .step span{color:var(--muted);font-size:.88rem}
 
-  /* STRIP */
+  /* STRIP (números comprovados) */
   .strip{background:var(--brand);color:#fff;padding:34px 0}
   .strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center}
   @media(max-width:760px){.strip-grid{grid-template-columns:repeat(2,1fr);gap:26px}}
-  .strip .n{font-size:1.55rem;font-weight:900;color:#fff;font-style:italic}
-  .strip .l{color:rgba(255,255,255,.88);font-size:.88rem;margin-top:2px}
+  .strip .n{font-size:1.9rem;font-weight:900;color:#fff;letter-spacing:-.02em}
+  .strip .l{color:rgba(255,255,255,.9);font-size:.88rem;margin-top:2px}
+
+  /* PROMESSA (prazos) */
+  .promise{background:var(--ink-2)}
+  .promise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:760px){.promise-grid{grid-template-columns:1fr}}
+  .promise-item{text-align:center;padding:8px}
+  .promise-item .n{font-size:2rem;font-weight:900;color:var(--brand-2)}
+  .promise-item .l{color:var(--muted);font-size:.95rem}
 
   /* PROPÓSITO band */
-  .purpose{background:var(--ink-2);text-align:center}
-  .purpose .eyebrow{display:block;margin-bottom:18px}
-  .purpose p{font-size:clamp(1.5rem,3.6vw,2.3rem);font-weight:800;letter-spacing:-.02em;max-width:900px;margin:0 auto;line-height:1.25}
-  .purpose p em{color:var(--brand);font-style:italic}
+  .purpose{text-align:center}
+  .purpose .script{color:var(--brand-2);font-size:1.7rem;display:block;margin-bottom:10px}
+  .purpose p{font-size:clamp(1.4rem,3.4vw,2.15rem);font-weight:800;letter-spacing:-.02em;max-width:900px;margin:0 auto;line-height:1.28}
+  .purpose p em{color:var(--brand);font-style:normal}
 
   /* SECTIONS */
-  section{padding:78px 0}
-  .eyebrow{color:var(--brand);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
-  h2{font-size:clamp(1.85rem,3.8vw,2.6rem);font-weight:900;letter-spacing:-.025em;line-height:1.13;margin-bottom:16px}
-  h2 em{color:var(--brand);font-style:italic}
+  section{padding:76px 0}
+  .eyebrow{color:var(--brand-2);font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+  h2{font-size:clamp(1.85rem,3.8vw,2.6rem);font-weight:800;letter-spacing:-.02em;line-height:1.13;margin-bottom:16px}
+  h2 em{color:var(--brand);font-style:normal}
   .lead{color:var(--muted);font-size:1.08rem;max-width:660px}
   .center{text-align:center}
   .center .lead{margin:0 auto}
@@ -105,18 +122,25 @@
   @media(max-width:860px){.grid-3,.grid-2{grid-template-columns:1fr}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;transition:border-color .2s,transform .2s}
   .card:hover{border-color:var(--brand);transform:translateY(-4px)}
-  .card .ico{width:50px;height:50px;border-radius:13px;display:grid;place-items:center;font-size:1.5rem;background:var(--brand-soft);border:1px solid rgba(255,90,31,.25);margin-bottom:18px}
-  .card h3{font-size:1.18rem;font-weight:800;margin-bottom:8px}
+  .card .ico{width:50px;height:50px;border-radius:13px;display:grid;place-items:center;font-size:1.5rem;background:var(--brand-soft);border:1px solid rgba(232,127,24,.25);margin-bottom:18px}
+  .card h3{font-size:1.18rem;font-weight:700;margin-bottom:8px}
   .card p{color:var(--muted);font-size:.97rem}
+  .card .tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+  .card .tags span{font-size:.78rem;color:var(--brand-2);background:var(--brand-soft);border:1px solid rgba(232,127,24,.2);padding:4px 10px;border-radius:999px}
 
   /* PERSONA cards */
-  .persona .q{font-size:1.05rem;font-weight:700;font-style:italic;color:var(--text);margin-bottom:14px;line-height:1.35}
-  .persona .q::before{content:"“";color:var(--brand);font-weight:900}
-  .persona .q::after{content:"”";color:var(--brand);font-weight:900}
+  .persona .q{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:14px;line-height:1.35}
+  .persona .q::before{content:"“";color:var(--brand)}
+  .persona .q::after{content:"”";color:var(--brand)}
   .persona .who{font-size:.82rem;color:var(--brand-2);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px}
 
+  /* CLIENTES */
+  .clients{background:var(--ink-2);text-align:center}
+  .clients .names{display:flex;flex-wrap:wrap;gap:14px 34px;justify-content:center;margin-top:30px}
+  .clients .names span{font-size:1.35rem;font-weight:800;color:var(--text);opacity:.75;letter-spacing:.02em}
+  @media(max-width:600px){.clients .names span{font-size:1.1rem}}
+
   /* PAIN */
-  .pain{background:var(--ink-2)}
   .pain-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:40px}
   @media(max-width:760px){.pain-list{grid-template-columns:1fr}}
   .pain-item{display:flex;gap:13px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
@@ -127,14 +151,20 @@
   .vows{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:46px}
   @media(max-width:860px){.vows{grid-template-columns:1fr}}
   .vow{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;gap:14px;align-items:flex-start}
-  .vow .n{flex:0 0 auto;font-size:1.1rem;font-weight:900;color:var(--brand);font-style:italic;width:34px}
+  .vow .n{flex:0 0 auto;font-size:1.1rem;font-weight:900;color:var(--brand);width:34px}
   .vow b{display:block;font-size:1.02rem;margin-bottom:3px}
   .vow span{color:var(--muted);font-size:.92rem}
 
+  /* SOBRE */
+  .about{background:var(--ink-2)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  @media(max-width:860px){.about-grid{grid-template-columns:1fr;gap:30px}}
+  .about blockquote{border-left:3px solid var(--brand);padding-left:20px;margin-top:24px;color:var(--text);font-size:1.05rem}
+
   /* QUOTE band */
-  .quote{background:var(--ink-2);text-align:center}
+  .quote{text-align:center}
   .quote p{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em;max-width:840px;margin:0 auto;line-height:1.25}
-  .quote p em{color:var(--brand);font-style:italic}
+  .quote p em{color:var(--brand);font-style:normal}
   .quote .by{margin-top:16px;color:var(--muted);font-size:.95rem}
 
   /* SERVICES list */
@@ -144,14 +174,14 @@
   .seg b{font-weight:600}
 
   /* CTA / FORM */
-  .cta{background:linear-gradient(170deg,#0d1320,var(--ink));border-top:1px solid var(--line)}
+  .cta{background:linear-gradient(170deg,#0f1d33,var(--ink));border-top:1px solid var(--line)}
   .formwrap{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;margin-top:40px;box-shadow:0 30px 70px rgba(0,0,0,.45)}
   iframe.jf{width:100%;border:none;min-height:760px;border-radius:14px;background:#fff}
 
   /* FAQ */
   details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 22px;margin-bottom:12px;transition:border-color .2s}
   details[open]{border-color:var(--brand)}
-  summary{cursor:pointer;list-style:none;font-weight:700;padding:20px 0;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  summary{cursor:pointer;list-style:none;font-weight:600;padding:20px 0;display:flex;justify-content:space-between;align-items:center;gap:16px}
   summary::-webkit-details-marker{display:none}
   summary::after{content:"+";font-size:1.5rem;color:var(--brand);font-weight:400}
   details[open] summary::after{content:"–"}
@@ -159,11 +189,16 @@
 
   /* FINAL */
   .final{text-align:center;position:relative;overflow:hidden}
-  .final::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(560px 280px at 50% 120%,rgba(255,90,31,.18),transparent 60%)}
+  .final::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(560px 280px at 50% 120%,rgba(232,127,24,.18),transparent 60%)}
+  .final .script{color:var(--brand-2);font-size:1.7rem;display:block;margin-bottom:8px}
 
   /* FOOTER */
-  footer{background:var(--ink-2);color:var(--muted);padding:40px 0;border-top:1px solid var(--line);font-size:.88rem}
-  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+  footer{background:var(--ink-2);color:var(--muted);padding:44px 0;border-top:1px solid var(--line);font-size:.88rem}
+  footer .ftop{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;margin-bottom:20px}
+  footer .flogo{height:28px;width:auto}
+  footer .fmeta{display:flex;gap:18px;align-items:center}
+  footer .fmeta a:hover{color:var(--brand-2)}
+  footer .script{color:var(--brand-2);font-size:1.25rem}
 
   /* WhatsApp float */
   .wa-float{position:fixed;right:20px;bottom:20px;z-index:80;width:60px;height:60px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 10px 30px rgba(37,211,102,.45);transition:transform .15s}
@@ -175,10 +210,10 @@
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <div class="logo">Agi<b>zz</b>e</div>
+    <img class="nav-logo" src="assets/agizze-logo-white.png" alt="Agizze" />
     <nav class="nav-links">
+      <a href="#servicos">Serviços</a>
       <a href="#para-quem">Para quem</a>
-      <a href="#resolve">O que resolvemos</a>
       <a href="#diferenciais">Diferenciais</a>
       <a href="#faq">Dúvidas</a>
       <a href="#proposta" class="btn nav-cta">Chamar a Agizze</a>
@@ -190,15 +225,16 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="pill"><span class="d"></span> Terceirização e equipes operacionais · Recrutamento e seleção</span>
+      <div class="tagline">Oportunidades que movem histórias</div>
+      <span class="pill"><span class="d"></span> Terceirização logística · Recrutamento &amp; Seleção</span>
       <h1>A operação não espera.<br/><span class="hl">Chamou, a gente agizza.</span></h1>
-      <p class="sub">Encontramos, selecionamos e alocamos as pessoas certas para a sua operação — cobrindo faltas e picos com agilidade, presença em campo e acompanhamento de verdade. Da vaga à rotina, de A a Z.</p>
+      <p class="sub">Encontramos, selecionamos e alocamos as pessoas certas para a sua operação — câmara fria, separação, conferência e carga. Com agilidade real, presença em campo e acompanhamento de verdade. De A a Z.</p>
       <div class="hero-actions">
         <a href="#proposta" class="btn">Quero resolver minha operação →</a>
-        <a href="https://wa.me/5547996558404?text=Ol%C3%A1!%20Quero%20que%20a%20Agizze%20cuide%20das%20equipes%20da%20minha%20opera%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-wa">Falar no WhatsApp</a>
+        <a href="https://wa.me/5547996558404?text=Ol%C3%A1!%20Quero%20que%20a%20Agizze%20cuide%20das%20equipes%20da%20minha%20opera%C3%A7%C3%A3o%20log%C3%ADstica." target="_blank" rel="noopener" class="btn btn-wa">Falar no WhatsApp</a>
       </div>
       <div class="trust">
-        <div>🤝 <b>Parceira</b> da sua operação</div>
+        <div>⏱️ Operação no ar em <b>7 dias</b></div>
         <div>📍 Presença <b>em campo</b></div>
         <div>🛡️ Garantia e <b>segurança jurídica</b></div>
       </div>
@@ -206,43 +242,95 @@
     <div class="hero-card">
       <div class="az">De A a Z</div>
       <h3>Como a Agizze resolve</h3>
-      <div class="step" style="margin-top:10px"><span class="num">A</span><div><b>Entendemos a operação</b><span>O perfil, o volume, os picos e a cultura — cada vaga é uma história</span></div></div>
-      <div class="step"><span class="num">B</span><div><b>Recrutamos e selecionamos</b><span>Busca ativa, triagem e avaliação de fit técnico e comportamental</span></div></div>
+      <div class="step" style="margin-top:10px"><span class="num">A</span><div><b>Entendemos a operação</b><span>Perfil, volume, picos e escala — câmara fria, separação, conferência</span></div></div>
+      <div class="step"><span class="num">B</span><div><b>Recrutamos e selecionamos</b><span>Banco de talentos próprio + matching, com fit técnico e comportamental</span></div></div>
       <div class="step"><span class="num">C</span><div><b>Alocamos e acompanhamos</b><span>Gente em campo, com presença, substituição rápida e suporte</span></div></div>
       <div class="step"><span class="num">Z</span><div><b>Mantemos rodando</b><span>Acompanhamento contínuo para a operação não parar</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- STRIP -->
+<!-- STRIP (números comprovados) -->
 <div class="strip">
   <div class="wrap strip-grid">
-    <div><div class="n">De A a Z</div><div class="l">do recrutamento à operação</div></div>
-    <div><div class="n">Em campo</div><div class="l">presença ativa, não só envio</div></div>
-    <div><div class="n">−Atrito</div><div class="l">substituições rápidas, sem burocracia</div></div>
-    <div><div class="n">Garantia</div><div class="l">reposição e segurança jurídica</div></div>
+    <div><div class="n">6+ anos</div><div class="l">de operação no setor</div></div>
+    <div><div class="n">200+</div><div class="l">posições ativas em gestão</div></div>
+    <div><div class="n">60%</div><div class="l">retenção em 90 dias</div></div>
+    <div><div class="n">R$ 2M+</div><div class="l">em operação mensal</div></div>
   </div>
 </div>
 
 <!-- PROPÓSITO -->
 <section class="purpose">
   <div class="wrap">
-    <span class="eyebrow">Nosso propósito</span>
+    <span class="script">Nosso propósito</span>
     <p>Transformar <em>vidas e negócios</em> conectando pessoas a oportunidades de trabalho — com agilidade, humanidade e compromisso.</p>
   </div>
 </section>
 
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="wrap">
+    <div class="eyebrow">O que a gente resolve</div>
+    <h2>Da vaga à operação, <em>de A a Z</em></h2>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="ico">📦</div>
+        <h3>Terceirização logística</h3>
+        <p>Nosso carro-chefe: alocação de mão de obra para a sua operação, com gestão completa e presença em campo.</p>
+        <div class="tags"><span>Câmara fria</span><span>Separação &amp; picking</span><span>Conferência</span><span>Carga e descarga</span></div>
+      </div>
+      <div class="card">
+        <div class="ico">🎯</div>
+        <h3>Recrutamento &amp; Seleção</h3>
+        <p>Processo completo para quem quer contratar direto: matching inteligente, banco de talentos próprio e prazo curto.</p>
+        <div class="tags"><span>Matching com IA</span><span>Banco de talentos</span><span>Fit cultural</span></div>
+      </div>
+      <div class="card">
+        <div class="ico">📊</div>
+        <h3>Gestão &amp; acompanhamento</h3>
+        <p>Ponto de Controle: você recebe um panorama da operação direto no WhatsApp — cobertura, faltas e substituições, sem ter que cobrar.</p>
+        <div class="tags"><span>Relatório quinzenal</span><span>Substituição ágil</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMESSA (prazos) -->
+<section class="promise">
+  <div class="wrap">
+    <div class="eyebrow center">Agilidade que vira contrato</div>
+    <h2 class="center" style="margin-bottom:40px">Resposta rápida, sem perder a <em>qualidade</em></h2>
+    <div class="promise-grid">
+      <div class="promise-item"><div class="n">24h</div><div class="l">para responder a uma nova demanda</div></div>
+      <div class="promise-item"><div class="n">7 dias</div><div class="l">para iniciar a operação</div></div>
+      <div class="promise-item"><div class="n">48h</div><div class="l">para repor uma vaga</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- DOR -->
-<section class="pain">
+<section id="dor">
   <div class="wrap">
     <div class="eyebrow">Por que chamar a Agizze</div>
     <h2>Operação parada e gente errada <em>custam caro</em></h2>
-    <p class="lead">Falta de pessoal no pico, fornecedor que some na hora crítica, perfil desqualificado, passivo trabalhista. Cada erro trava a operação e pesa no caixa.</p>
+    <p class="lead">Rotatividade alta, vaga operacional difícil de preencher em câmara fria, escala apertada e prazo curto. Cada falha trava o giro e pesa no caixa.</p>
     <div class="pain-list">
-      <div class="pain-item"><span class="x">✕</span><span>Falta de gente em períodos críticos, parando o giro da operação</span></div>
-      <div class="pain-item"><span class="x">✕</span><span>Perfis desqualificados, que te obrigam a refazer o processo</span></div>
-      <div class="pain-item"><span class="x">✕</span><span>Fornecedor que desaparece quando você mais precisa</span></div>
+      <div class="pain-item"><span class="x">✕</span><span>Falta de gente em períodos críticos, parando a operação logística</span></div>
+      <div class="pain-item"><span class="x">✕</span><span>Dificuldade de preencher vagas frias e de escala difícil em prazo curto</span></div>
+      <div class="pain-item"><span class="x">✕</span><span>Rotatividade alta e fornecedor que some na hora crítica</span></div>
       <div class="pain-item"><span class="x">✕</span><span>Risco jurídico, falhas de SLA e passivo trabalhista escondido</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTES -->
+<section class="clients">
+  <div class="wrap">
+    <div class="eyebrow">Quem confia na Agizze</div>
+    <h2>Marcas que movem o Brasil <em>contam com a gente</em></h2>
+    <div class="names">
+      <span>DASA</span><span>Carrefour</span><span>Rio Branco</span><span>Aurora</span><span>Sadia</span><span>BRF</span>
     </div>
   </div>
 </section>
@@ -257,42 +345,26 @@
         <div class="ico">🚚</div>
         <div class="who">Operações &amp; Logística</div>
         <p class="q">Preciso de alguém que resolva agora e não me deixe na mão.</p>
-        <p>Gerentes e diretores que precisam cobrir faltas e picos com agilidade, manter o giro e contar com um parceiro disponível de verdade.</p>
+        <p>Gestores de logística e supply que precisam cobrir faltas e picos com agilidade e manter o giro sem ruído.</p>
       </div>
       <div class="card persona">
         <div class="ico">🏭</div>
-        <div class="who">Indústria &amp; Produção</div>
+        <div class="who">Indústria &amp; Frigoríficos</div>
         <p class="q">Agilidade com segurança, sem risco jurídico pra mim.</p>
-        <p>Supervisores que precisam do chão de fábrica rodando sem paradas, com gente qualificada, respaldo legal e substituição clara.</p>
+        <p>Supervisores que precisam do chão de fábrica e da câmara fria rodando sem paradas, com gente qualificada e respaldo legal.</p>
       </div>
       <div class="card persona">
         <div class="ico">🏛️</div>
-        <div class="who">Facilities &amp; Governança</div>
+        <div class="who">Diretoria &amp; Governança</div>
         <p class="q">Minha paz de espírito vale mais que economia pontual.</p>
-        <p>Diretores que veem a terceirização como governança: querem fornecedor auditável, compliance, previsibilidade e zero ruído.</p>
+        <p>Diretores que veem a terceirização como governança: querem fornecedor sólido, compliance, previsibilidade e zero ruído.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- O QUE RESOLVEMOS -->
-<section id="resolve" style="background:var(--ink-2)">
-  <div class="wrap">
-    <div class="eyebrow">O que a gente resolve</div>
-    <h2>Da vaga à operação, <em>de A a Z</em></h2>
-    <div class="grid grid-3">
-      <div class="card"><div class="ico">🎯</div><h3>Recrutamento &amp; seleção</h3><p>Busca ativa, triagem e avaliação de fit técnico e comportamental — do operacional à liderança de campo.</p></div>
-      <div class="card"><div class="ico">👥</div><h3>Terceirização de equipes</h3><p>Alocamos profissionais que representam a Agizze em campo e dão forma ao serviço, com presença e responsabilidade.</p></div>
-      <div class="card"><div class="ico">⚡</div><h3>Cobertura de faltas e picos</h3><p>Reforço de equipe para sazonalidade e emergências, mantendo a operação no ritmo certo.</p></div>
-      <div class="card"><div class="ico">🔁</div><h3>Substituições rápidas</h3><p>Reposição ágil e sem burocracia — quando algo falha, a gente resolve antes de virar problema.</p></div>
-      <div class="card"><div class="ico">🛡️</div><h3>Segurança jurídica</h3><p>Processos formalizados, conformidade e garantias contratuais para blindar a sua operação.</p></div>
-      <div class="card"><div class="ico">📊</div><h3>Acompanhamento contínuo</h3><p>Ponto de Controle: você recebe um panorama da operação direto no WhatsApp, sem precisar cobrar.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- COMPROMISSOS (Direcionadores de experiência) -->
-<section id="diferenciais">
+<!-- COMPROMISSOS -->
+<section id="diferenciais" style="background:var(--ink-2)">
   <div class="wrap">
     <div class="eyebrow">O que nos torna diferentes</div>
     <h2>Nossos compromissos com <em>cada entrega</em></h2>
@@ -308,6 +380,24 @@
   </div>
 </section>
 
+<!-- SOBRE -->
+<section class="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="eyebrow">Quem move a Agizze</div>
+      <h2>Nascida do <em>destemor</em></h2>
+      <p class="lead">A Agizze começou em 2020, em Santa Catarina, do zero. Hoje é referência em terceirização logística, com operação em campo que sustenta o dia a dia de grandes marcas.</p>
+      <blockquote>Construímos do nada o que hoje move centenas de histórias. É esse mesmo destemor que colocamos na sua operação.</blockquote>
+    </div>
+    <div class="card">
+      <div class="seg"><span class="ck">✔</span><b>Fundada em 2020, em Santa Catarina</b></div>
+      <div class="seg"><span class="ck">✔</span><b>Operação majoritariamente em campo (logística)</b></div>
+      <div class="seg"><span class="ck">✔</span><b>200+ posições ativas em gestão</b></div>
+      <div class="seg"><span class="ck">✔</span><b>Atuação no Sul e expansão Sul/Sudeste</b></div>
+    </div>
+  </div>
+</section>
+
 <!-- QUOTE -->
 <section class="quote">
   <div class="wrap">
@@ -317,7 +407,7 @@
 </section>
 
 <!-- COMO FUNCIONA -->
-<section id="como">
+<section id="como" style="background:var(--ink-2)">
   <div class="wrap">
     <div class="grid grid-2" style="align-items:center;margin-top:0">
       <div>
@@ -329,7 +419,7 @@
       <div class="card" style="padding:14px 30px">
         <div class="seg"><span class="ck">①</span><b>Conhecimento — entendemos a urgência e o perfil</b></div>
         <div class="seg"><span class="ck">②</span><b>Ativação — proposta enxuta e clareza de condições</b></div>
-        <div class="seg"><span class="ck">③</span><b>Implantação — equipe pontual, com presença desde o dia 1</b></div>
+        <div class="seg"><span class="ck">③</span><b>Implantação — equipe pontual, presente desde o dia 1</b></div>
         <div class="seg"><span class="ck">④</span><b>Operação — rotina fluida, substituições e Ponto de Controle</b></div>
         <div class="seg"><span class="ck">⑤</span><b>Fidelização — acompanhamento proativo e parceria de longo prazo</b></div>
       </div>
@@ -344,7 +434,7 @@
     <h2>Chamou? <em>A gente agizza.</em></h2>
     <p class="lead center">Conte o que sua operação precisa. A gente volta com uma proposta sob medida em até <strong>24h úteis</strong>.</p>
     <div class="hero-actions" style="justify-content:center;margin-top:24px">
-      <a href="https://wa.me/5547996558404?text=Ol%C3%A1!%20Quero%20uma%20proposta%20da%20Agizze%20para%20as%20equipes%20da%20minha%20opera%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-wa">Prefiro pelo WhatsApp</a>
+      <a href="https://wa.me/5547996558404?text=Ol%C3%A1!%20Quero%20uma%20proposta%20da%20Agizze%20para%20a%20minha%20opera%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-wa">Prefiro pelo WhatsApp</a>
     </div>
 
     <div class="formwrap">
@@ -365,18 +455,19 @@
   <div class="wrap" style="max-width:760px">
     <div class="eyebrow center">Dúvidas frequentes</div>
     <h2 class="center" style="margin-bottom:40px">O que as empresas costumam perguntar</h2>
-    <details><summary>A Agizze faz só recrutamento ou também aloca a equipe?</summary><p>Os dois. Cuidamos do recrutamento e seleção e também da terceirização e alocação das equipes em campo — com presença, acompanhamento e substituições. Você decide o escopo.</p></details>
-    <details><summary>Como vocês cobrem faltas e picos de demanda?</summary><p>Com agilidade e um pipeline sempre quente. Reforçamos a equipe na sazonalidade e repomos faltas rápido, para a operação não parar.</p></details>
+    <details><summary>A Agizze faz só recrutamento ou também aloca a equipe?</summary><p>Os dois. Nosso carro-chefe é a terceirização logística (a Agizze contrata, aloca e gere a equipe em campo), e também fazemos recrutamento e seleção para quem prefere contratar direto. Você decide o escopo.</p></details>
+    <details><summary>Para quais funções vocês alocam?</summary><p>Operações logísticas pesadas: câmara fria (auxiliar, separador, conferente), separação e picking, conferência, carga e descarga.</p></details>
+    <details><summary>Em quanto tempo a operação começa?</summary><p>Respondemos a uma nova demanda em até 24h, iniciamos a operação em até 7 dias e repomos uma vaga em até 48h.</p></details>
     <details><summary>E a segurança jurídica e o compliance?</summary><p>Trabalhamos com processos formalizados e garantias contratuais para blindar a sua operação de riscos trabalhistas — previsibilidade e conformidade fazem parte da entrega.</p></details>
     <details><summary>Como funciona o acompanhamento depois da contratação?</summary><p>Com o nosso Ponto de Controle: a cada quinzena você recebe, direto no WhatsApp, um panorama curto da operação (cobertura, faltas, substituições, destaques) — sem precisar cobrar.</p></details>
-    <details><summary>Tem garantia se a contratação não der certo?</summary><p>Tem. Se o profissional sair dentro do prazo combinado, repomos a posição sem custo adicional.</p></details>
-    <details><summary>Como funciona a cobrança?</summary><p>O investimento varia conforme o tipo de vaga, o volume e o modelo de contratação. Chame a gente e enviamos uma proposta sob medida, sem compromisso.</p></details>
+    <details><summary>Vocês atendem em quais regiões?</summary><p>Atuamos com base em Santa Catarina e expansão pelo Sul e Sudeste. Fale com a gente sobre a localização da sua operação.</p></details>
   </div>
 </section>
 
 <!-- FINAL -->
 <section class="final">
   <div class="wrap">
+    <span class="script">Oportunidades que movem histórias</span>
     <h2>Cada oportunidade transforma <em>vidas e negócios</em></h2>
     <p class="lead center" style="margin-bottom:30px">Deixe sua operação com quem está ao seu lado — com presença, agilidade e resultado. De A a Z.</p>
     <a href="#proposta" class="btn">Chamar a Agizze →</a>
@@ -385,8 +476,15 @@
 
 <footer>
   <div class="wrap">
-    <div class="logo" style="font-size:1.3rem">Agi<b>zz</b>e</div>
-    <span>© 2026 Agizze — Equipes operacionais, recrutamento e seleção. Chamou, a gente agizza.</span>
+    <div class="ftop">
+      <img class="flogo" src="assets/agizze-logo-white.png" alt="Agizze" />
+      <div class="fmeta">
+        <a href="https://instagram.com/agizzegestao" target="_blank" rel="noopener">@agizzegestao</a>
+        <a href="https://wa.me/5547996558404" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="script">Oportunidades que movem histórias</div>
+    <div style="margin-top:8px">© 2026 Agizze — Terceirização logística e Recrutamento &amp; Seleção. Santa Catarina, Brasil.</div>
   </div>
 </footer>
 
