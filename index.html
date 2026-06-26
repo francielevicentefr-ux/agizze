@@ -101,6 +101,17 @@
   .checklist li:last-child{border-bottom:none}
   .checklist svg{width:20px;height:20px;stroke:var(--brand);stroke-width:2.2;fill:none;flex:0 0 auto;margin-top:3px}
 
+  /* MVV */
+  .mvv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:54px}
+  @media(max-width:900px){.mvv-grid{grid-template-columns:1fr}}
+  .mvv{border:1px solid var(--line);border-radius:14px;padding:36px 32px}
+  .mvv .ico{width:50px;height:50px;border-radius:11px;background:rgba(232,127,24,.08);display:grid;place-items:center;margin-bottom:20px}
+  .mvv .ico svg{width:25px;height:25px;stroke:var(--brand);stroke-width:1.6;fill:none}
+  .mvv h3{font-size:1.22rem;font-weight:700;color:var(--navy);margin-bottom:10px}
+  .mvv p{color:var(--muted);font-size:.98rem}
+  .vlist{list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+  .vlist li{font-weight:600;color:var(--brand-dark);background:rgba(232,127,24,.08);border:1px solid rgba(232,127,24,.18);padding:8px 15px;border-radius:8px;font-size:.92rem}
+
   /* SERVICES */
   .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:54px}
   @media(max-width:900px){.svc-grid{grid-template-columns:1fr}}
@@ -245,7 +256,7 @@
 <section style="padding:72px 0">
   <div class="wrap stats">
     <div class="stat"><div class="n">6+</div><div class="l">anos de operação no setor</div></div>
-    <div class="stat"><div class="n">200+</div><div class="l">posições ativas em gestão</div></div>
+    <div class="stat"><div class="n">700+</div><div class="l">profissionais em campo</div></div>
     <div class="stat"><div class="n">60%</div><div class="l">de retenção em 90 dias</div></div>
     <div class="stat"><div class="n">R$ 2M+</div><div class="l">em operação mensal</div></div>
   </div>
@@ -256,17 +267,45 @@
   <div class="wrap about-grid">
     <div>
       <div class="eyebrow">Sobre a Agizze</div>
-      <h2>Presença, agilidade e compromisso em <em>cada operação</em></h2>
-      <p class="lead">A Agizze nasceu em 2020, em Santa Catarina, e se tornou referência em terceirização logística. Conectamos pessoas a oportunidades de trabalho com humanidade e resultado — sustentando o dia a dia de grandes operações.</p>
-      <blockquote>Transformar vidas e negócios conectando pessoas a oportunidades de trabalho.</blockquote>
+      <h2>Terceirização logística com <em>gestão inteligente</em></h2>
+      <p class="lead">Nascemos em 2020, em Santa Catarina, do desejo de fazer diferente: unir gente de verdade, presença em campo e tecnologia para que a sua operação nunca pare. Hoje somos <strong>mais de 700 profissionais</strong> movendo a logística de grandes marcas.</p>
+      <blockquote>“Construímos do zero o que hoje move centenas de histórias. É esse mesmo destemor que colocamos na sua operação.”</blockquote>
     </div>
     <ul class="checklist">
       <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Operação majoritariamente em campo, com presença real</li>
       <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Banco de talentos próprio de profissionais de logística</li>
       <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Processos formalizados e segurança jurídica</li>
       <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Acompanhamento contínuo e substituições ágeis</li>
+      <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Gestão inteligente: matching com IA e Ponto de Controle no WhatsApp</li>
       <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Atuação no Sul, com expansão pelo Sudeste</li>
     </ul>
+  </div>
+</section>
+
+<!-- MISSÃO, VISÃO, VALORES -->
+<section id="mvv">
+  <div class="wrap">
+    <div class="eyebrow">Missão, visão e valores</div>
+    <h2>O que <em>nos move</em></h2>
+    <div class="mvv-grid">
+      <div class="mvv">
+        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg></div>
+        <h3>Missão</h3>
+        <p>Transformar vidas e negócios conectando pessoas a oportunidades de trabalho — com agilidade, humanidade e compromisso.</p>
+      </div>
+      <div class="mvv">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg></div>
+        <h3>Visão</h3>
+        <p>Ser referência em terceirização logística no Sul do Brasil e levar essa presença, com o mesmo padrão, para o Sudeste.</p>
+      </div>
+      <div class="mvv">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8L3.5 9.2l5.9-.9z"/></svg></div>
+        <h3>Valores</h3>
+        <ul class="vlist">
+          <li>Destemida</li><li>Humana</li><li>Precisa</li><li>Parceira</li><li>Ágil</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
