@@ -166,8 +166,13 @@
 </a>
 
 <script>
-  // Fonte de dados — alimentada pelo sistema Agizze (ver PORTAL-VAGAS.md)
-  var FONTE = 'vagas.json';
+  // ===== Fonte de dados das vagas (ver SUPABASE-VAGAS.md) =====
+  // Opção 1 (recomendada): Supabase. Preencha com a URL do projeto e a chave "anon public".
+  var SUPABASE_URL  = '';   // ex.: https://xxxxxxxx.supabase.co
+  var SUPABASE_ANON = '';   // chave anon public (segura para o frontend, protegida por RLS)
+  // Opção 2 (fallback): arquivo estático, usado se o Supabase não estiver configurado.
+  var FONTE_JSON = 'vagas.json';
+
   var WHATSAPP = '5547996558404';
   var todas = [];
 
@@ -232,7 +237,7 @@
   }
 
   function init(dados){
-    todas = (dados && dados.vagas) ? dados.vagas : [];
+    todas = Array.isArray(dados) ? dados : ((dados && dados.vagas) ? dados.vagas : []);
     document.getElementById('loading').style.display='none';
     if(!todas.length){ document.getElementById('empty').style.display='block'; return; }
     preencherFiltro('f-cidade', unique(todas.map(function(v){return v.cidade;})));
@@ -245,7 +250,15 @@
     aplicarFiltros();
   }
 
-  fetch(FONTE, {cache:'no-store'})
+  function carregar(){
+    if(SUPABASE_URL && SUPABASE_ANON){
+      var url = SUPABASE_URL.replace(/\/+$/,'') + '/rest/v1/vagas?select=*&ativa=eq.true&order=publicada_em.desc';
+      return fetch(url, {cache:'no-store', headers:{ apikey: SUPABASE_ANON, Authorization: 'Bearer ' + SUPABASE_ANON }});
+    }
+    return fetch(FONTE_JSON, {cache:'no-store'});
+  }
+
+  carregar()
     .then(function(r){ if(!r.ok) throw new Error('falha'); return r.json(); })
     .then(init)
     .catch(function(){
