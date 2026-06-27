@@ -13,7 +13,7 @@
   :root{
     --brand:#E87F18; --brand-2:#FD8F3A; --brand-dark:#cf6f10;
     --navy:#0C1726; --navy-2:#13233b; --azul:#134184;
-    --text:#16233a; --muted:#64707f; --line:#e7e9ee;
+    --text:#16233a; --muted:#525c6b; --line:#e7e9ee;
     --bg:#ffffff; --bg-soft:#f5f6f8; --max:1180px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -36,7 +36,16 @@
   .nav-links{display:flex;gap:30px;align-items:center}
   .nav-links a{color:var(--text);font-weight:500;font-size:.95rem;opacity:.85}
   .nav-links a:hover,.nav-links a.active{opacity:1;color:var(--brand-dark)}
-  @media(max-width:880px){.nav-links a:not(.nav-cta){display:none}}
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;color:var(--navy);margin:-8px}
+  .nav-toggle svg{width:26px;height:26px;stroke:currentColor;stroke-width:2;fill:none;display:block}
+  @media(max-width:880px){
+    .nav-toggle{display:inline-flex}
+    .nav-links{position:fixed;top:76px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0;padding:8px 0 16px;box-shadow:0 24px 40px rgba(12,23,38,.12);transform:translateY(-14px);opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;max-height:calc(100dvh - 76px);overflow:auto}
+    .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}
+    .nav-links a{padding:15px 28px;font-size:1.02rem;opacity:1}
+    .nav-links a.nav-cta{margin:12px 28px 0;justify-content:center}
+  }
+  @media (prefers-reduced-motion: reduce){ .nav-links{transition:none} }
 
   /* HERO PORTAL */
   .phero{background:var(--navy);color:#fff;padding:64px 0 54px}
@@ -86,7 +95,7 @@
   .foot-links a:hover{color:var(--brand-2)}
   .foot-tag{color:var(--brand-2);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.82rem}
 
-  .wa-float{position:fixed;right:22px;bottom:22px;z-index:120;width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 12px 30px rgba(37,211,102,.4)}
+  .wa-float{position:fixed;right:22px;bottom:22px;z-index:120;width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 8px 22px rgba(12,23,38,.24)}
   .wa-float svg{width:30px;height:30px;fill:#fff}
 </style>
 </head>
@@ -95,13 +104,16 @@
 <header class="nav">
   <div class="wrap nav-inner">
     <a href="index.html"><img class="nav-logo" src="assets/agizze-logo-orange.png" alt="Agizze RH" /></a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="nav-links">
       <a href="index.html#solucoes">Soluções</a>
       <a href="index.html#sobre">Sobre</a>
       <a href="vagas.html" class="active">Vagas</a>
       <a href="index.html#contato">Contato</a>
       <a href="https://form.jotform.com/261766278706065" target="_blank" rel="noopener" class="btn nav-cta">Cadastrar currículo</a>
     </nav>
+    <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
 </header>
 
@@ -130,6 +142,11 @@
       <h3>Nenhuma vaga encontrada</h3>
       <p>No momento não há vagas com esses filtros. Cadastre-se no Banco de Talentos e seja avisado quando surgir uma oportunidade com o seu perfil.</p>
       <a href="https://form.jotform.com/261766278706065" target="_blank" rel="noopener" class="btn">Cadastrar no Banco de Talentos</a>
+    </div>
+    <div id="erro" class="empty" style="display:none">
+      <h3>Não foi possível carregar as vagas</h3>
+      <p>Tivemos um problema de conexão ao buscar as vagas. Tente novamente em instantes.</p>
+      <button type="button" class="btn" onclick="location.reload()">Tentar novamente</button>
     </div>
   </div>
 </section>
@@ -193,7 +210,7 @@
   function dataBR(iso){ if(!iso) return ''; var p=String(iso).split('-'); return p.length===3 ? p[2]+'/'+p[1]+'/'+p[0] : iso; }
 
   function candidatarLink(v){
-    var msg = 'Olá! Tenho interesse na vaga: ' + v.titulo + (v.cidade ? ' — ' + v.cidade : '') + (v.id ? ' ('+v.id+')' : '') + '.';
+    var msg = 'Olá! Tenho interesse na vaga: ' + v.titulo + (v.cidade ? ' em ' + v.cidade : '') + (v.id ? ' ('+v.id+')' : '') + '.';
     return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg);
   }
 
@@ -263,8 +280,24 @@
     .then(init)
     .catch(function(){
       document.getElementById('loading').style.display='none';
-      document.getElementById('empty').style.display='block';
+      document.getElementById('erro').style.display='block';
     });
+
+  // Menu mobile (hambúrguer)
+  var navToggle=document.querySelector('.nav-toggle'), navLinks=document.getElementById('nav-links');
+  if(navToggle && navLinks){
+    navToggle.addEventListener('click',function(){
+      var open=navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded',open?'true':'false');
+      navToggle.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+    });
+    navLinks.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){navLinks.classList.remove('open');navToggle.setAttribute('aria-expanded','false');});
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape' && navLinks.classList.contains('open')){navLinks.classList.remove('open');navToggle.setAttribute('aria-expanded','false');}
+    });
+  }
 </script>
 </body>
 </html>

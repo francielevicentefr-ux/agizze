@@ -17,7 +17,7 @@
   :root{
     --brand:#E87F18; --brand-2:#FD8F3A; --brand-dark:#cf6f10;
     --navy:#0C1726; --navy-2:#13233b; --azul:#134184;
-    --text:#16233a; --muted:#64707f; --line:#e7e9ee;
+    --text:#16233a; --muted:#525c6b; --line:#e7e9ee;
     --bg:#ffffff; --bg-soft:#f5f6f8;
     --max:1180px;
   }
@@ -59,7 +59,18 @@
   .nav-links a{color:var(--text);font-weight:500;font-size:.95rem;opacity:.85}
   .nav-links a:hover{opacity:1;color:var(--brand-dark)}
   .nav-cta{padding:11px 22px;font-size:.92rem}
-  @media(max-width:960px){.nav-links a:not(.nav-cta){display:none}}
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;color:var(--navy);margin:-8px}
+  .nav-toggle svg{width:26px;height:26px;stroke:currentColor;stroke-width:2;fill:none;display:block}
+  @media(max-width:960px){
+    .nav-toggle{display:inline-flex}
+    .nav-links{position:fixed;top:76px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0;padding:8px 0 16px;box-shadow:0 24px 40px rgba(12,23,38,.12);transform:translateY(-14px);opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;max-height:calc(100dvh - 76px);overflow:auto}
+    .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}
+    .nav-links a{padding:15px 28px;font-size:1.02rem;opacity:1}
+    .nav-links a.nav-cta{margin:12px 28px 0;justify-content:center;font-size:1rem}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .nav-links{transition:none}
+  }
 
   /* HERO */
   .hero{padding:84px 0 80px;position:relative;overflow:hidden}
@@ -95,7 +106,8 @@
   /* ABOUT */
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
   @media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:36px}}
-  .about blockquote{margin-top:26px;padding-left:22px;border-left:3px solid var(--brand);font-size:1.12rem;color:var(--navy);font-weight:500}
+  .about blockquote{margin-top:30px;position:relative;padding-top:30px;font-size:1.18rem;line-height:1.5;color:var(--navy);font-weight:500;font-style:italic;text-wrap:pretty}
+  .about blockquote::before{content:"\201C";position:absolute;top:2px;left:-2px;font-size:3rem;line-height:1;color:var(--brand);font-weight:800;font-style:normal}
   .checklist{list-style:none;display:flex;flex-direction:column;gap:2px}
   .checklist li{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--line);font-weight:500}
   .checklist li:last-child{border-bottom:none}
@@ -131,8 +143,8 @@
   .vows{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:54px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden}
   @media(max-width:860px){.vows{grid-template-columns:1fr}}
   .vow{background:var(--navy);padding:30px}
-  .vow .n{color:var(--brand-2);font-weight:800;font-size:1.05rem;letter-spacing:.04em}
-  .vow b{display:block;font-size:1.08rem;font-weight:600;margin:10px 0 6px}
+  .vow .vbar{width:30px;height:2px;background:var(--brand);border-radius:2px}
+  .vow b{display:block;font-size:1.08rem;font-weight:600;margin:16px 0 6px}
   .vow span{color:rgba(255,255,255,.62);font-size:.92rem}
   .promise{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:56px;text-align:center}
   @media(max-width:760px){.promise{grid-template-columns:1fr;gap:30px}}
@@ -192,7 +204,7 @@
   iframe.jf{width:100%;border:none;min-height:600px;border-radius:10px;background:#fff}
 
   /* WhatsApp float */
-  .wa-float{position:fixed;right:22px;bottom:22px;z-index:120;width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 12px 30px rgba(37,211,102,.4);transition:transform .15s}
+  .wa-float{position:fixed;right:22px;bottom:22px;z-index:120;width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 8px 22px rgba(12,23,38,.24);transition:transform .15s}
   .wa-float:hover{transform:scale(1.07)}
   .wa-float svg{width:30px;height:30px;fill:#fff}
 </style>
@@ -202,7 +214,7 @@
 <header class="nav">
   <div class="wrap nav-inner">
     <a href="#topo"><img class="nav-logo" src="assets/agizze-logo-orange.png" alt="Agizze RH" /></a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="nav-links">
       <a href="#solucoes">Soluções</a>
       <a href="#empresas">Para empresas</a>
       <a href="vagas.html">Vagas</a>
@@ -210,6 +222,9 @@
       <a href="#contato">Contato</a>
       <a href="#" class="btn nav-cta" data-open="modal-proposta">Solicitar proposta</a>
     </nav>
+    <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
 </header>
 
@@ -219,7 +234,7 @@
     <div>
       <div class="kicker">Oportunidades que movem histórias</div>
       <h1>Terceirização logística e seleção que <em>não deixam sua operação parar</em></h1>
-      <p class="lead">Encontramos, selecionamos e alocamos as pessoas certas para a sua operação — câmara fria, separação, conferência e carga. Com agilidade, presença em campo e acompanhamento de verdade.</p>
+      <p class="lead">Encontramos, selecionamos e alocamos as pessoas certas para a sua operação: câmara fria, separação, conferência e carga. Com agilidade, presença em campo e acompanhamento de verdade.</p>
       <div class="hero-actions">
         <a href="#" class="btn" data-open="modal-proposta">Solicitar proposta
           <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -266,7 +281,6 @@
 <section id="sobre" class="soft">
   <div class="wrap about-grid">
     <div>
-      <div class="eyebrow">Sobre a Agizze</div>
       <h2>Terceirização logística com <em>gestão inteligente</em></h2>
       <p class="lead">Nascemos em 2020, em Santa Catarina, do desejo de fazer diferente: unir gente de verdade, presença em campo e tecnologia para que a sua operação nunca pare. Hoje somos <strong>mais de 700 profissionais</strong> movendo a logística de grandes marcas.</p>
       <blockquote>“Construímos do zero o que hoje move centenas de histórias. É esse mesmo destemor que colocamos na sua operação.”</blockquote>
@@ -314,7 +328,7 @@
   <div class="wrap">
     <div class="eyebrow">Soluções</div>
     <h2>Tudo o que a sua operação precisa, <em>de A a Z</em></h2>
-    <p class="lead">Da reposição emergencial à gestão completa de equipes — com a Agizze cuidando das pessoas para você focar no negócio.</p>
+    <p class="lead">Da reposição emergencial à gestão completa de equipes, com a Agizze cuidando das pessoas para você focar no negócio.</p>
     <div class="svc-grid">
       <div class="svc">
         <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg></div>
@@ -342,7 +356,7 @@
       <div class="svc">
         <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></svg></div>
         <h3>Gestão e acompanhamento</h3>
-        <p>Ponto de Controle: panorama da operação direto no WhatsApp — cobertura, faltas e substituições.</p>
+        <p>Ponto de Controle: panorama da operação direto no WhatsApp: cobertura, faltas e substituições.</p>
         <div class="tags"><span>Relatório quinzenal</span><span>Substituição ágil</span></div>
       </div>
       <div class="svc">
@@ -359,14 +373,14 @@
   <div class="wrap">
     <div class="eyebrow">Por que a Agizze</div>
     <h2>Não fornecemos gente. <em>Sustentamos a sua operação.</em></h2>
-    <p class="lead">Presença, critério e parceria em cada entrega — todos os dias, não só na contratação.</p>
+    <p class="lead">Presença, critério e parceria em cada entrega, todos os dias. Não só na contratação.</p>
     <div class="vows">
-      <div class="vow"><div class="n">01</div><b>Presença ativa em campo</b><span>Acompanhamos de perto. A Agizze está presente mesmo quando tudo vai bem.</span></div>
-      <div class="vow"><div class="n">02</div><b>Agilidade com critério</b><span>Resolver rápido com qualificação, respaldo e responsabilidade.</span></div>
-      <div class="vow"><div class="n">03</div><b>A entrega continua</b><span>Ponto de Controle quinzenal e suporte que não some depois do combinado.</span></div>
-      <div class="vow"><div class="n">04</div><b>Funciona para os dois lados</b><span>Cada entrega serve a quem contrata e a quem executa em campo.</span></div>
-      <div class="vow"><div class="n">05</div><b>Segurança jurídica</b><span>Processos formalizados e garantias contratuais que blindam a sua operação.</span></div>
-      <div class="vow"><div class="n">06</div><b>Atendimento humano</b><span>Gente de verdade do outro lado, com resposta e compromisso.</span></div>
+      <div class="vow"><div class="vbar"></div><b>Presença ativa em campo</b><span>Acompanhamos de perto. A Agizze está presente mesmo quando tudo vai bem.</span></div>
+      <div class="vow"><div class="vbar"></div><b>Agilidade com critério</b><span>Resolver rápido com qualificação, respaldo e responsabilidade.</span></div>
+      <div class="vow"><div class="vbar"></div><b>A entrega continua</b><span>Ponto de Controle quinzenal e suporte que não some depois do combinado.</span></div>
+      <div class="vow"><div class="vbar"></div><b>Funciona para os dois lados</b><span>Cada entrega serve a quem contrata e a quem executa em campo.</span></div>
+      <div class="vow"><div class="vbar"></div><b>Segurança jurídica</b><span>Processos formalizados e garantias contratuais que blindam a sua operação.</span></div>
+      <div class="vow"><div class="vbar"></div><b>Atendimento humano</b><span>Gente de verdade do outro lado, com resposta e compromisso.</span></div>
     </div>
     <div class="promise">
       <div><div class="n">24h</div><div class="l">para responder a uma nova demanda</div></div>
@@ -379,7 +393,6 @@
 <!-- SEGMENTOS / PARA EMPRESAS -->
 <section id="empresas" class="soft">
   <div class="wrap">
-    <div class="eyebrow">Para empresas</div>
     <h2>Feito para quem <em>não pode parar</em></h2>
     <div class="seg-grid">
       <div class="seg"><div class="who">Operações &amp; Logística</div><p class="q">“Preciso de alguém que resolva agora e não me deixe na mão.”</p><p>Gestores que precisam cobrir faltas e picos com agilidade e manter o giro sem ruído.</p></div>
@@ -402,7 +415,6 @@
 <!-- CTA EMPRESAS -->
 <section class="ctaband" id="empresas-cta">
   <div class="wrap">
-    <div class="eyebrow" style="justify-content:center">Vamos resolver juntos</div>
     <h2>Receba uma proposta sob medida <em>em até 24h</em></h2>
     <p class="lead center">Conte o que a sua operação precisa. Sem compromisso.</p>
     <div class="hero-actions">
@@ -419,7 +431,6 @@
 <section id="candidatos">
   <div class="wrap about-grid">
     <div>
-      <div class="eyebrow">Para candidatos</div>
       <h2>Sua próxima oportunidade <em>começa aqui</em></h2>
       <p class="lead">Aqui, cada vaga é uma vida. Cadastre-se no Banco de Talentos da Agizze e seja chamado para as próximas oportunidades. Clareza, respeito e oportunidade de verdade.</p>
       <div class="hero-actions" style="margin-top:32px">
@@ -439,7 +450,6 @@
 <!-- CONTATO -->
 <section id="contato" class="soft">
   <div class="wrap">
-    <div class="eyebrow">Contato</div>
     <h2>Fale com a <em>Agizze</em></h2>
     <div class="contact-grid">
       <div class="contact-card"><svg viewBox="0 0 24 24"><path d="M21 16.5v3a2 2 0 01-2.2 2A19 19 0 013 6.2 2 2 0 015 4h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2L8.5 11a16 16 0 004.5 4.5l.7-1.6a2 2 0 012-.5c.8.3 1.7.5 2.6.6a2 2 0 011.7 2z"/></svg><div><b>WhatsApp comercial</b><a href="https://wa.me/5547996558404" target="_blank" rel="noopener">(47) 99655-8404</a></div></div>
@@ -466,12 +476,12 @@
 </footer>
 
 <!-- MODAL: PROPOSTA -->
-<div class="modal" id="modal-proposta" aria-hidden="true">
+<div class="modal" id="modal-proposta" role="dialog" aria-modal="true" aria-labelledby="modal-proposta-title" aria-hidden="true">
   <div class="modal-box">
     <button class="modal-x" data-close aria-label="Fechar">&times;</button>
     <div class="modal-head">
       <div class="eyebrow">Para empresas</div>
-      <h3>Solicitar proposta</h3>
+      <h3 id="modal-proposta-title">Solicitar proposta</h3>
       <p>Conte sobre a sua operação. Retornamos em até 24h úteis, sem compromisso.</p>
     </div>
     <div class="modal-body">
@@ -481,13 +491,13 @@
 </div>
 
 <!-- MODAL: TALENTOS -->
-<div class="modal" id="modal-talentos" aria-hidden="true">
+<div class="modal" id="modal-talentos" role="dialog" aria-modal="true" aria-labelledby="modal-talentos-title" aria-hidden="true">
   <div class="modal-box">
     <button class="modal-x" data-close aria-label="Fechar">&times;</button>
     <div class="modal-head">
       <div class="eyebrow">Para candidatos</div>
-      <h3>Banco de Talentos</h3>
-      <p>Cadastre seu currículo. É gratuito — entramos em contato quando surgir uma vaga com o seu perfil.</p>
+      <h3 id="modal-talentos-title">Banco de Talentos</h3>
+      <p>Cadastre seu currículo. É gratuito. Entramos em contato quando surgir uma vaga com o seu perfil.</p>
     </div>
     <div class="modal-body">
       <iframe class="jf" id="JotFormIFrame-261766278706065" data-src="https://form.jotform.com/261766278706065" title="Banco de Talentos — Agizze" allow="geolocation; microphone; camera; fullscreen" scrolling="no"></iframe>
@@ -500,8 +510,26 @@
 </a>
 
 <script>
+  // Menu mobile (hambúrguer)
+  var navToggle=document.querySelector('.nav-toggle'), navLinks=document.getElementById('nav-links');
+  if(navToggle && navLinks){
+    navToggle.addEventListener('click',function(){
+      var open=navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded',open?'true':'false');
+      navToggle.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+    });
+    navLinks.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){navLinks.classList.remove('open');navToggle.setAttribute('aria-expanded','false');});
+    });
+  }
+
   // Abrir/fechar modais — formulários só carregam ao clicar
-  function closeAll(){document.querySelectorAll('.modal.open').forEach(function(m){m.classList.remove('open')});document.body.style.overflow='';}
+  var lastFocused=null;
+  function closeAll(){
+    document.querySelectorAll('.modal.open').forEach(function(m){m.classList.remove('open');m.setAttribute('aria-hidden','true');});
+    document.body.style.overflow='';
+    if(lastFocused && lastFocused.focus){lastFocused.focus();lastFocused=null;}
+  }
   document.querySelectorAll('[data-open]').forEach(function(b){
     b.addEventListener('click',function(e){
       e.preventDefault();
@@ -509,12 +537,20 @@
       if(!m)return;
       var f=m.querySelector('iframe');
       if(f && !f.getAttribute('src') && f.dataset.src){f.setAttribute('src',f.dataset.src);}
-      m.classList.add('open');document.body.style.overflow='hidden';
+      lastFocused=b;
+      m.classList.add('open');m.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+      var x=m.querySelector('.modal-x'); if(x) x.focus();
     });
   });
   document.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',closeAll);});
   document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)closeAll();});});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+      closeAll();
+      if(navLinks && navLinks.classList.contains('open')){navLinks.classList.remove('open');navToggle.setAttribute('aria-expanded','false');}
+    }
+  });
   // Auto-resize Jotform dentro do modal
   window.addEventListener('message',function(e){
     if(typeof e.data==='string' && e.data.indexOf('setHeight')===0){
