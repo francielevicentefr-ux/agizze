@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Portal de Vagas — Agizze RH | Oportunidades em logística</title>
-<meta name="description" content="Vagas abertas na Agizze: câmara fria, separação, conferência, carga e descarga e logística em Santa Catarina. Candidate-se ou cadastre-se no Banco de Talentos." />
+<meta name="description" content="Vagas abertas na Agizze: câmara fria, separação, conferência, carga e descarga e logística em todo o Brasil. Candidate-se ou cadastre-se no Banco de Talentos." />
 <link rel="icon" type="image/png" href="assets/agizze-symbol-orange.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -160,7 +160,7 @@
     <nav class="crumb" aria-label="Você está aqui"><a href="index.html">Início</a> › <b>Portal de Vagas</b></nav>
     <div class="kick">Portal de Vagas</div>
     <h1>Oportunidades que movem histórias</h1>
-    <p>Vagas abertas em logística e operações em Santa Catarina. Encontre a sua, candidate-se e faça parte da Agizze.</p>
+    <p>Vagas abertas em logística e operações em todo o Brasil. Encontre a sua, candidate-se e faça parte da Agizze.</p>
     <div class="filters">
       <input type="search" id="q" placeholder="Buscar por cargo ou palavra-chave" aria-label="Buscar" />
       <select id="f-cidade" aria-label="Cidade"><option value="">Todas as cidades</option></select>
@@ -239,6 +239,7 @@
     <button type="button" data-q="Como funciona o Banco de Talentos?">Banco de Talentos</button>
     <button type="button" data-q="Quais vagas vocês têm em câmara fria?">Vagas câmara fria</button>
     <button type="button" data-q="Como me candidato a uma vaga?">Como me candidato?</button>
+    <button type="button" data-q="Quero falar com o setor comercial." data-handoff="1">Falar com atendente</button>
   </div>
   <form class="chat-foot" id="chatForm">
     <input id="chatInput" type="text" autocomplete="off" placeholder="Escreva sua mensagem…" maxlength="800" />
@@ -371,7 +372,8 @@
         input=document.getElementById('chatInput'), closeBtn=document.getElementById('chatClose'),
         quick=document.getElementById('chatQuick'), sendBtn=document.getElementById('chatSend');
     if(!fab||!panel) return;
-    var history=[], greeted=false, busy=false;
+    var history=[], greeted=false, busy=false, notified=false, userCount=0;
+    function notifyLead(){ if(notified) return; notified=true; fetch('/api/lead',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:history,page:location.pathname})}).catch(function(){}); }
     function scrollDown(){ body.scrollTop=body.scrollHeight; }
     function addMsg(text, who){ var d=document.createElement('div'); d.className='msg '+who; d.textContent=text; body.appendChild(d); scrollDown(); return d; }
     function openChat(){
@@ -386,7 +388,8 @@
       text=(text||'').trim();
       if(busy || !text) return;
       if(quick) quick.style.display='none';
-      addMsg(text,'me'); history.push({role:'user',content:text});
+      addMsg(text,'me'); history.push({role:'user',content:text}); userCount++;
+      if(userCount>=2) notifyLead();
       input.value=''; busy=true; sendBtn.disabled=true;
       var typing=addMsg('digitando…','typing');
       fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:history})})
@@ -400,7 +403,7 @@
         .finally(function(){ busy=false; sendBtn.disabled=false; input.focus(); });
     }
     form.addEventListener('submit',function(e){ e.preventDefault(); send(input.value); });
-    quick.addEventListener('click',function(e){ var b=e.target.closest('button[data-q]'); if(b) send(b.getAttribute('data-q')); });
+    quick.addEventListener('click',function(e){ var b=e.target.closest('button[data-q]'); if(b){ if(b.getAttribute('data-handoff')) notifyLead(); send(b.getAttribute('data-q')); } });
     document.addEventListener('keydown',function(e){ if(e.key==='Escape' && panel.classList.contains('open')) closeChat(); });
   })();
 </script>
