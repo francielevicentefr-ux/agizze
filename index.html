@@ -51,6 +51,35 @@
   .center .lead{margin-left:auto;margin-right:auto}
   .soft{background:var(--bg-soft)}
 
+  /* MEDIA SLOTS (trocar placeholder por <img>/<video>) */
+  .media{position:relative;border-radius:16px;overflow:hidden;background:linear-gradient(150deg,var(--navy),var(--navy-2));box-shadow:0 30px 70px rgba(12,23,38,.18)}
+  .media.r43{aspect-ratio:4/3}
+  .media.r169{aspect-ratio:16/9}
+  .media img,.media video{width:100%;height:100%;object-fit:cover;display:block}
+  .media .ph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:12px;text-align:center;padding:24px}
+  .media .ph::before{content:"";width:52px;height:52px;background:url('assets/agizze-symbol-orange.png') center/contain no-repeat;opacity:.45}
+  .media .ph span{font-size:.8rem;letter-spacing:.04em;color:rgba(255,255,255,.6)}
+  .media[data-filled] .ph{display:none}
+
+  /* STEPPER (sequência real A->Z) */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:54px}
+  @media(max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+  .step-item{position:relative;padding-top:22px;border-top:2px solid var(--line)}
+  .step-item::before{content:"";position:absolute;top:-2px;left:0;width:42px;height:2px;background:var(--brand)}
+  .step-item .sn{font-size:.78rem;font-weight:700;color:var(--brand-dark);letter-spacing:.12em;text-transform:uppercase}
+  .step-item b{display:block;font-size:1.12rem;color:var(--navy);margin:8px 0 6px}
+  .step-item p{color:var(--muted);font-size:.95rem}
+
+  /* nav active (scrollspy) */
+  .nav-links a.current{color:var(--brand-dark);opacity:1}
+
+  /* REVEAL on scroll (só com JS + sem reduced-motion; conteúdo visível por padrão) */
+  @media (prefers-reduced-motion: no-preference){
+    html.js .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+    html.js .reveal.in{opacity:1;transform:none}
+  }
+
   /* NAV */
   header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:76px;gap:24px}
@@ -243,12 +272,11 @@
       </div>
       <p class="note">Atendimento consultivo e presença em campo, do primeiro contato à operação no dia a dia.</p>
     </div>
-    <div class="hero-panel">
-      <div class="pt">Como a Agizze trabalha</div>
-      <div class="pstep"><span class="l">1</span><div><b>Entendemos a operação</b><span>Perfil, volume, picos e escala</span></div></div>
-      <div class="pstep"><span class="l">2</span><div><b>Recrutamos e selecionamos</b><span>Banco de talentos próprio e avaliação de fit</span></div></div>
-      <div class="pstep"><span class="l">3</span><div><b>Alocamos e acompanhamos</b><span>Presença em campo e substituição rápida</span></div></div>
-      <div class="pstep"><span class="l">4</span><div><b>Mantemos rodando</b><span>Acompanhamento contínuo da operação</span></div></div>
+    <!-- SLOT DE MÍDIA DO HERO — trocar a div .ph por <img src="assets/hero.jpg" alt="..."> ou <video autoplay muted loop playsinline poster> -->
+    <div class="media r43" id="media-hero" data-slot="hero">
+      <div class="ph">
+        <span>Espaço para foto ou vídeo da operação</span>
+      </div>
     </div>
   </div>
 </section>
@@ -270,10 +298,35 @@
 <!-- STATS -->
 <section style="padding:72px 0">
   <div class="wrap stats">
-    <div class="stat"><div class="n">6+</div><div class="l">anos de operação no setor</div></div>
-    <div class="stat"><div class="n">700+</div><div class="l">profissionais em campo</div></div>
-    <div class="stat"><div class="n">60%</div><div class="l">de retenção em 90 dias</div></div>
-    <div class="stat"><div class="n">R$ 2M+</div><div class="l">em operação mensal</div></div>
+    <div class="stat"><div class="n" data-count="6" data-suffix="+">6+</div><div class="l">anos de operação no setor</div></div>
+    <div class="stat"><div class="n" data-count="700" data-suffix="+">700+</div><div class="l">profissionais em campo</div></div>
+    <div class="stat"><div class="n" data-count="60" data-suffix="%">60%</div><div class="l">de retenção em 90 dias</div></div>
+    <div class="stat"><div class="n" data-count="2" data-prefix="R$ " data-suffix="M+">R$ 2M+</div><div class="l">em operação mensal</div></div>
+  </div>
+</section>
+
+<!-- COMO TRABALHAMOS (sequência real -> numeração justificada) -->
+<section class="soft" id="como">
+  <div class="wrap">
+    <h2>Como a Agizze trabalha, <em>de A a Z</em></h2>
+    <p class="lead">Um processo claro, da primeira conversa à operação rodando todos os dias.</p>
+    <div class="steps">
+      <div class="step-item"><div class="sn">Passo 1</div><b>Entendemos a operação</b><p>Perfil, volume, picos e escala da sua demanda.</p></div>
+      <div class="step-item"><div class="sn">Passo 2</div><b>Recrutamos e selecionamos</b><p>Banco de talentos próprio e avaliação de fit técnico e comportamental.</p></div>
+      <div class="step-item"><div class="sn">Passo 3</div><b>Alocamos e acompanhamos</b><p>Gente em campo, com presença e substituição rápida.</p></div>
+      <div class="step-item"><div class="sn">Passo 4</div><b>Mantemos rodando</b><p>Acompanhamento contínuo para a operação nunca parar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAIXA DE MÍDIA (vídeo/foto da operação) — trocar a div .ph por <video autoplay muted loop playsinline poster="..."> ou <img> -->
+<section>
+  <div class="wrap">
+    <div class="media r169" id="media-operacao" data-slot="operacao">
+      <div class="ph">
+        <span>Espaço para vídeo ou foto da operação (16:9)</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -559,6 +612,65 @@
       if(f&&h){f.style.height=h+'px';}
     }
   });
+
+  // ===== Interatividade / motion =====
+  document.documentElement.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Reveal no scroll — conteúdo visível por padrão; anima ao entrar na viewport
+  var revealEls = document.querySelectorAll('.stat,.svc,.mvv,.seg,.vow,.contact-card,.step-item,.media,.checklist li,.promise > div,.cand-inner > div');
+  if(!reduce && 'IntersectionObserver' in window){
+    revealEls.forEach(function(el){ el.classList.add('reveal'); });
+    var ro=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var el=en.target;
+          var idx=el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+          el.style.transitionDelay=(Math.min(idx,6)*60)+'ms';
+          el.classList.add('in');
+          ro.unobserve(el);
+        }
+      });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    revealEls.forEach(function(el){ ro.observe(el); });
+  }
+
+  // Contadores animados
+  function animateCount(el){
+    var target=parseFloat(el.getAttribute('data-count'))||0;
+    var pre=el.getAttribute('data-prefix')||'', suf=el.getAttribute('data-suffix')||'';
+    if(reduce){ el.textContent=pre+target+suf; return; }
+    var dur=1100, t0=null;
+    function frame(ts){
+      if(!t0)t0=ts;
+      var p=Math.min((ts-t0)/dur,1), eased=1-Math.pow(1-p,4);
+      el.textContent=pre+Math.round(target*eased)+suf;
+      if(p<1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  var counters=document.querySelectorAll('[data-count]');
+  if('IntersectionObserver' in window){
+    var co=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ animateCount(en.target); co.unobserve(en.target); } });
+    },{threshold:.6});
+    counters.forEach(function(el){ co.observe(el); });
+  } else { counters.forEach(animateCount); }
+
+  // Scrollspy — destaca a seção atual no menu
+  var spy=[].slice.call(document.querySelectorAll('#nav-links a[href^="#"]')), map={};
+  spy.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id && document.getElementById(id)) map[id]=a; });
+  if('IntersectionObserver' in window && Object.keys(map).length){
+    var so=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          spy.forEach(function(a){ a.classList.remove('current'); });
+          if(map[en.target.id]) map[en.target.id].classList.add('current');
+        }
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    Object.keys(map).forEach(function(id){ so.observe(document.getElementById(id)); });
+  }
 </script>
 </body>
 </html>
