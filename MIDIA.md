@@ -8,8 +8,8 @@ O site tem **slots de mídia** prontos (mostram um placeholder com o símbolo da
 |---|---|---|---|
 | `media-hero` | Topo (hero), ao lado do título | 4:3 | Foto forte da operação / equipe, ou vídeo curto mudo |
 | `media-operacao` | Faixa entre "Como trabalhamos" e "Sobre" | 16:9 | **Vídeo da operação** em loop (câmara fria, separação, carga) |
-
-> Mais slots (Sobre, Candidatos) são fáceis de adicionar — é só pedir.
+| `media-sobre` | Seção "Sobre", ao lado da história | 4:3 | Foto da equipe ou da sede |
+| `media-candidatos` | Seção "Trabalhe conosco" | 4:3 | Foto de colaboradores reais (com autorização de imagem) |
 
 ## Como trocar o placeholder por uma imagem
 Dentro do slot, substituir o bloco `<div class="ph">…</div>` por:
