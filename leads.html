@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Painel de Leads — Agizze (comercial)</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/png" href="assets/agizze-symbol-orange.png" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{--brand:#E87F18;--brand-dark:#cf6f10;--navy:#0C1726;--text:#16233a;--muted:#525c6b;--line:#e7e9ee;--bg:#f5f6f8;--max:880px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Outfit',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg);line-height:1.55}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+  header{background:var(--navy);color:#fff;padding:18px 0}
+  header .row{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:var(--max);margin:0 auto;padding:0 18px}
+  header img{height:24px}
+  header .meta{font-size:.82rem;color:rgba(255,255,255,.6)}
+  .bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:20px 0}
+  .bar input{flex:1;min-width:200px;border:1px solid var(--line);border-radius:10px;padding:11px 13px;font:inherit}
+  .btn{border:none;background:var(--brand);color:#fff;font:inherit;font-weight:600;border-radius:10px;padding:11px 18px;cursor:pointer}
+  .btn:hover{background:var(--brand-dark)}
+  .btn-sm{padding:8px 14px;font-size:.86rem;border-radius:8px}
+  .muted{color:var(--muted);font-size:.9rem}
+  .lead{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+  .lead .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .lead .when{color:var(--muted);font-size:.82rem;margin-left:auto}
+  .tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-dark);background:rgba(232,127,24,.1);padding:4px 10px;border-radius:6px}
+  .wa{background:#25D366;color:#fff;text-decoration:none;border-radius:8px;padding:8px 14px;font-size:.86rem;font-weight:600}
+  .wa:hover{background:#1eb858}
+  .transcript{white-space:pre-wrap;font-size:.92rem;color:#26303f;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;max-height:180px;overflow:auto}
+  .empty{text-align:center;color:var(--muted);padding:50px 10px}
+  footer{text-align:center;color:var(--muted);font-size:.82rem;padding:24px}
+</style>
+</head>
+<body>
+<header>
+  <div class="row">
+    <img src="assets/agizze-logo-white.png" alt="Agizze" />
+    <div class="meta" id="meta">Painel de Leads · comercial</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="bar">
+    <input id="token" type="password" placeholder="Senha de acesso do comercial" autocomplete="off" />
+    <button class="btn" id="entrar">Entrar</button>
+    <button class="btn btn-sm" id="atualizar" style="display:none;background:#26303f">Atualizar</button>
+    <label class="muted" style="display:none" id="autoWrap"><input type="checkbox" id="auto" checked /> auto a cada 20s</label>
+  </div>
+  <div id="lista"></div>
+  <div class="empty" id="estado">Informe a senha para ver os leads.</div>
+</main>
+<footer>Agizze · uso interno do comercial. Não compartilhe esta senha.</footer>
+
+<script>
+  var tokenInput=document.getElementById('token'), lista=document.getElementById('lista'),
+      estado=document.getElementById('estado'), meta=document.getElementById('meta'),
+      btnEntrar=document.getElementById('entrar'), btnAtt=document.getElementById('atualizar'),
+      autoWrap=document.getElementById('autoWrap'), auto=document.getElementById('auto');
+  var timer=null;
+
+  var saved=localStorage.getItem('agz_leads_token');
+  if(saved){ tokenInput.value=saved; }
+
+  function fmt(iso){ try{ var d=new Date(iso.replace(' ','T')); return d.toLocaleString('pt-BR'); }catch(e){ return iso||''; } }
+  function esc(s){ return (s==null?'':String(s)).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+  function waLink(phone){
+    var num=(phone||'').replace(/\D/g,''); if(!num) return '';
+    if(num.length<=11) num='55'+num;
+    return 'https://wa.me/'+num+'?text='+encodeURIComponent('Olá! Sou do comercial da Agizze e recebi seu contato pelo nosso site.');
+  }
+  function card(l){
+    var wa=waLink(l.phone);
+    return '<div class="lead">'+
+      '<div class="top">'+
+        '<span class="tag">'+esc(l.page||'site')+'</span>'+
+        (l.phone?('<span class="muted">'+esc(l.phone)+'</span>'):'')+
+        (wa?('<a class="wa" target="_blank" rel="noopener" href="'+wa+'">Responder no WhatsApp</a>'):'')+
+        '<span class="when">'+fmt(l.criado_em)+'</span>'+
+      '</div>'+
+      '<div class="transcript">'+esc(l.transcript||'')+'</div>'+
+    '</div>';
+  }
+  function carregar(){
+    var t=tokenInput.value.trim(); if(!t) return;
+    fetch('/api/leads?token='+encodeURIComponent(t))
+      .then(function(r){ if(r.status===401) throw new Error('senha'); return r.json(); })
+      .then(function(data){
+        localStorage.setItem('agz_leads_token', t);
+        btnAtt.style.display='inline-block'; autoWrap.style.display='inline-flex';
+        var leads=data.leads||[];
+        meta.textContent='Painel de Leads · '+leads.length+' contato(s)';
+        if(!leads.length){ lista.innerHTML=''; estado.style.display='block'; estado.textContent='Nenhum lead ainda.'; return; }
+        estado.style.display='none';
+        lista.innerHTML=leads.map(card).join('');
+      })
+      .catch(function(e){
+        estado.style.display='block';
+        estado.textContent = e.message==='senha' ? 'Senha incorreta.' : 'Erro ao carregar. Tente de novo.';
+      });
+  }
+  function setupAuto(){ if(timer) clearInterval(timer); if(auto.checked){ timer=setInterval(carregar, 20000); } }
+  btnEntrar.addEventListener('click', function(){ carregar(); setupAuto(); });
+  btnAtt.addEventListener('click', carregar);
+  tokenInput.addEventListener('keydown', function(e){ if(e.key==='Enter'){ carregar(); setupAuto(); } });
+  auto.addEventListener('change', setupAuto);
+  if(saved){ carregar(); setupAuto(); }
+</script>
+</body>
+</html>
