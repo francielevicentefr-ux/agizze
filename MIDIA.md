@@ -1,6 +1,6 @@
 # 🖼️ Espaços de mídia do site — como subir fotos e vídeos
 
-O site tem **slots de mídia** prontos (mostram um placeholder com o símbolo da Agizze até receberem o arquivo real). Trocar é simples: você me envia o arquivo (ou coloca em `assets/`) e eu ploto, ou você mesmo edita.
+O site tem **slots de mídia** prontos. **Estado atual:** os 4 slots estão com **fotos interinas de stock** (Pexels, licença livre — `assets/op-*.jpg`) de logística, só para o site não ficar vazio. **Substituir pelo material real da Agizze** (footage/fotos da operação) assim que disponível. Trocar é simples: você me envia o arquivo (ou coloca em `assets/`) e eu ploto, ou você mesmo edita.
 
 ## Slots disponíveis (index.html)
 

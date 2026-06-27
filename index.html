@@ -217,6 +217,12 @@
   .foot-links{display:flex;gap:26px;flex-wrap:wrap}
   .foot-links a:hover{color:var(--brand-2)}
   .foot-tag{color:var(--brand-2);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.82rem}
+  .foot-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-bottom:30px}
+  @media(max-width:760px){.foot-cols{grid-template-columns:1fr 1fr;gap:24px}}
+  .foot-cols h4{color:#fff;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;font-weight:700}
+  .foot-cols a,.foot-cols span{display:block;color:rgba(255,255,255,.6);font-size:.92rem;padding:5px 0}
+  .foot-cols a:hover{color:var(--brand-2)}
+  .foot-bottom{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.1);padding-top:22px}
 
   /* MODAL */
   .modal{position:fixed;inset:0;z-index:200;display:none;align-items:flex-start;justify-content:center;background:rgba(12,23,38,.62);backdrop-filter:blur(4px);padding:5vh 16px;overflow-y:auto}
@@ -273,10 +279,8 @@
       <p class="note">Atendimento consultivo e presença em campo, do primeiro contato à operação no dia a dia.</p>
     </div>
     <!-- SLOT DE MIDIA DO HERO. Como trocar o placeholder por imagem/video: ver MIDIA.md -->
-    <div class="media r43" id="media-hero" data-slot="hero">
-      <div class="ph">
-        <span>Espaço para foto ou vídeo da operação</span>
-      </div>
+    <div class="media r43" id="media-hero" data-slot="hero" data-filled>
+      <img src="assets/op-hero.jpg" width="1200" height="900" alt="Operação logística: profissionais organizando caixas no armazém" />
     </div>
   </div>
 </section>
@@ -322,10 +326,8 @@
 <!-- FAIXA DE MIDIA (video/foto da operacao). Como trocar o placeholder: ver MIDIA.md -->
 <section>
   <div class="wrap">
-    <div class="media r169" id="media-operacao" data-slot="operacao">
-      <div class="ph">
-        <span>Espaço para vídeo ou foto da operação (16:9)</span>
-      </div>
+    <div class="media r169" id="media-operacao" data-slot="operacao" data-filled>
+      <img src="assets/op-faixa.jpg" width="1600" height="900" loading="lazy" alt="Empilhadeiras movimentando cargas em um armazém logístico" />
     </div>
   </div>
 </section>
@@ -347,8 +349,8 @@
       </ul>
     </div>
     <!-- SLOT DE MIDIA SOBRE. Como trocar o placeholder: ver MIDIA.md -->
-    <div class="media r43" id="media-sobre" data-slot="sobre" style="position:sticky;top:96px">
-      <div class="ph"><span>Espaço para foto da equipe ou da sede</span></div>
+    <div class="media r43" id="media-sobre" data-slot="sobre" data-filled style="position:sticky;top:96px">
+      <img src="assets/op-sobre.jpg" width="1000" height="750" loading="lazy" alt="Profissionais carregando caixas durante a operação no armazém" />
     </div>
   </div>
 </section>
@@ -502,8 +504,8 @@
       </div>
     </div>
     <!-- SLOT DE MIDIA CANDIDATOS. Como trocar o placeholder: ver MIDIA.md -->
-    <div class="media r43" id="media-candidatos" data-slot="candidatos" style="position:sticky;top:96px">
-      <div class="ph"><span>Espaço para foto de colaboradores</span></div>
+    <div class="media r43" id="media-candidatos" data-slot="candidatos" data-filled style="position:sticky;top:96px">
+      <img src="assets/op-candidatos.jpg" width="1000" height="750" loading="lazy" alt="Operador conduzindo uma empilhadeira na operação logística" />
     </div>
   </div>
 </section>
@@ -524,15 +526,37 @@
   <div class="wrap">
     <div class="foot-top">
       <img class="foot-logo" src="assets/agizze-logo-white.png" alt="Agizze RH" />
-      <div class="foot-links">
+      <a href="#" class="btn" data-open="modal-proposta">Solicitar proposta</a>
+    </div>
+    <div class="foot-cols">
+      <div>
+        <h4>Empresas</h4>
+        <a href="#solucoes">Soluções</a>
         <a href="#empresas">Para empresas</a>
-        <a href="vagas.html">Vagas</a>
+        <a href="#" data-open="modal-proposta">Solicitar proposta</a>
+      </div>
+      <div>
+        <h4>Candidatos</h4>
+        <a href="vagas.html">Portal de vagas</a>
         <a href="#candidatos">Trabalhe conosco</a>
+        <a href="#" data-open="modal-talentos">Banco de talentos</a>
+      </div>
+      <div>
+        <h4>Institucional</h4>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
         <a href="https://instagram.com/agizzerh" target="_blank" rel="noopener">@agizzerh</a>
       </div>
+      <div>
+        <h4>Contato</h4>
+        <a href="https://wa.me/5547996558404" target="_blank" rel="noopener">(47) 99655-8404</a>
+        <span>Santa Catarina · Sul e Sudeste</span>
+      </div>
     </div>
-    <div class="foot-tag">Oportunidades que movem histórias</div>
-    <div style="margin-top:10px">© 2026 Agizze — Terceirização logística e Recrutamento &amp; Seleção. Santa Catarina, Brasil.</div>
+    <div class="foot-bottom">
+      <div class="foot-tag">Oportunidades que movem histórias</div>
+      <div>© 2026 Agizze · Terceirização logística e Recrutamento &amp; Seleção · Santa Catarina, Brasil</div>
+    </div>
   </div>
 </footer>
 
