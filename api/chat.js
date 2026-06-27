@@ -1,7 +1,10 @@
 // Função serverless (Vercel) — assistente de IA da Agizze.
-// A chave da Anthropic fica só no servidor (env ANTHROPIC_API_KEY), nunca no navegador.
+// Suporta Google Gemini (free tier) OU Anthropic Claude. A chave fica só no servidor.
+//   - GEMINI_API_KEY  -> usa Google Gemini (gratuito)   [preferencial]
+//   - ANTHROPIC_API_KEY -> usa Claude
+// Modelo opcional via AI_MODEL (default: gemini-2.0-flash).
 
-const SYSTEM = `Você é a assistente virtual de atendimento da AGIZZE, empresa de terceirização logística e recrutamento & seleção de Santa Catarina. Você atende pelo chat do site agizze.
+const SYSTEM = `Você é a assistente virtual de atendimento da AGIZZE, empresa de terceirização logística e recrutamento & seleção de Santa Catarina. Você atende pelo chat do site.
 
 IDENTIDADE E TOM
 - Apresente-se como assistente virtual da Agizze. Seja transparente que é um atendimento automático; nunca finja ser humana.
@@ -32,29 +35,9 @@ OBJETIVO
 - Candidato: levar ao cadastro no Banco de Talentos / Portal de Vagas.
 - Sempre encerrar com um próximo passo claro.`;
 
-module.exports = async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method not allowed' });
-    return;
-  }
-
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) {
-    res.status(200).json({
-      reply: 'O atendimento por IA está sendo configurado. Enquanto isso, fale com a gente no WhatsApp (47) 99655-8404 ou pelo formulário do site. 🙂'
-    });
-    return;
-  }
-
-  // Lê o corpo (Vercel costuma entregar req.body já parseado; mas garantimos)
-  let payload = req.body;
-  if (typeof payload === 'string') {
-    try { payload = JSON.parse(payload); } catch (e) { payload = {}; }
-  }
-  if (!payload || typeof payload !== 'object') payload = {};
-
+function readMessages(payload) {
   const incoming = Array.isArray(payload.messages) ? payload.messages : [];
-  const messages = incoming
+  return incoming
     .slice(-12)
     .map(function (m) {
       return {
@@ -63,41 +46,79 @@ module.exports = async function handler(req, res) {
       };
     })
     .filter(function (m) { return m.content.length > 0; });
+}
 
+async function callGemini(key, model, messages) {
+  const contents = messages.map(function (m) {
+    return { role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] };
+  });
+  const url = 'https://generativelanguage.googleapis.com/v1beta/models/' +
+    encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(key);
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      system_instruction: { parts: [{ text: SYSTEM }] },
+      contents: contents,
+      generationConfig: { maxOutputTokens: 500, temperature: 0.6 }
+    })
+  });
+  if (!r.ok) return null;
+  const data = await r.json();
+  try {
+    return data.candidates[0].content.parts.map(function (p) { return p.text || ''; }).join('').trim() || null;
+  } catch (e) { return null; }
+}
+
+async function callClaude(key, model, messages) {
+  const r = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
+    body: JSON.stringify({
+      model: model || 'claude-sonnet-4-6',
+      max_tokens: 500,
+      system: SYSTEM,
+      messages: messages.map(function (m) { return { role: m.role, content: m.content }; })
+    })
+  });
+  if (!r.ok) return null;
+  const data = await r.json();
+  try { return data.content[0].text.trim() || null; } catch (e) { return null; }
+}
+
+module.exports = async function handler(req, res) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+
+  const gemKey = process.env.GEMINI_API_KEY;
+  const claudeKey = process.env.ANTHROPIC_API_KEY;
+  if (!gemKey && !claudeKey) {
+    res.status(200).json({
+      reply: 'O atendimento por IA está sendo configurado. Enquanto isso, fale com a gente no WhatsApp (47) 99655-8404 ou pelo formulário do site. 🙂'
+    });
+    return;
+  }
+
+  let payload = req.body;
+  if (typeof payload === 'string') { try { payload = JSON.parse(payload); } catch (e) { payload = {}; } }
+  if (!payload || typeof payload !== 'object') payload = {};
+
+  const messages = readMessages(payload);
   if (!messages.length) {
     res.status(200).json({ reply: 'Oi! Como posso ajudar — você é uma empresa que precisa contratar ou está procurando uma vaga?' });
     return;
   }
 
   try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 500,
-        system: SYSTEM,
-        messages: messages
-      })
-    });
-
-    if (!r.ok) {
-      res.status(200).json({
-        reply: 'Tive um problema técnico agora. Pode tentar de novo, ou falar no WhatsApp (47) 99655-8404.'
-      });
-      return;
+    let reply = null;
+    if (gemKey) {
+      reply = await callGemini(gemKey, process.env.AI_MODEL || 'gemini-2.0-flash', messages);
     }
-
-    const data = await r.json();
-    const reply =
-      data && Array.isArray(data.content) && data.content[0] && data.content[0].text
-        ? data.content[0].text
-        : 'Desculpe, não consegui responder agora. Fale com a gente no WhatsApp (47) 99655-8404.';
-
+    if (!reply && claudeKey) {
+      reply = await callClaude(claudeKey, process.env.AI_MODEL, messages);
+    }
+    if (!reply) {
+      reply = 'Tive um problema técnico agora. Pode tentar de novo, ou falar no WhatsApp (47) 99655-8404.';
+    }
     res.status(200).json({ reply: reply });
   } catch (e) {
     res.status(200).json({
