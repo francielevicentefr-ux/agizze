@@ -242,6 +242,38 @@
   .wa-float{position:fixed;right:22px;bottom:22px;z-index:120;width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 8px 22px rgba(12,23,38,.24);transition:transform .15s}
   .wa-float:hover{transform:scale(1.07)}
   .wa-float svg{width:30px;height:30px;fill:#fff}
+
+  /* CHAT IA */
+  .chat-fab{position:fixed;right:22px;bottom:90px;z-index:120;height:52px;padding:0 20px;border:none;border-radius:999px;background:var(--brand);color:#fff;font:inherit;font-weight:600;font-size:.94rem;display:inline-flex;align-items:center;gap:9px;cursor:pointer;box-shadow:0 10px 26px rgba(232,127,24,.38);transition:transform .15s,background .15s}
+  .chat-fab:hover{transform:translateY(-2px);background:var(--brand-dark)}
+  .chat-fab svg{width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none}
+  .chat-fab.hide{display:none}
+  .chat-panel{position:fixed;right:22px;bottom:22px;z-index:130;width:min(384px,calc(100vw - 32px));height:min(580px,calc(100vh - 110px));background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 40px 90px rgba(12,23,38,.32);display:none;flex-direction:column;overflow:hidden}
+  .chat-panel.open{display:flex;animation:fade .2s ease}
+  .chat-head{background:var(--navy);color:#fff;padding:15px 16px;display:flex;align-items:center;gap:12px;flex:0 0 auto}
+  .chat-head .av{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center;flex:0 0 auto}
+  .chat-head .av img{width:24px;height:24px}
+  .chat-head b{font-size:.98rem;display:block;line-height:1.2}
+  .chat-head .st{font-size:.76rem;color:rgba(255,255,255,.6)}
+  .chat-head .st i{font-style:normal;color:#25D366}
+  .chat-x{margin-left:auto;background:none;border:none;color:rgba(255,255,255,.65);font-size:1.5rem;line-height:1;cursor:pointer}
+  .chat-x:hover{color:#fff}
+  .chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg-soft)}
+  .msg{max-width:85%;padding:10px 13px;border-radius:14px;font-size:.94rem;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+  .msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);color:var(--text);border-bottom-left-radius:4px}
+  .msg.me{align-self:flex-end;background:var(--brand);color:#fff;border-bottom-right-radius:4px}
+  .msg.typing{align-self:flex-start;color:var(--muted);font-size:.88rem;background:#fff;border:1px solid var(--line)}
+  .chat-quick{display:flex;gap:7px;flex-wrap:wrap;padding:10px 14px 0;background:var(--bg-soft)}
+  .chat-quick button{font:inherit;font-size:.82rem;background:var(--brand-soft);color:var(--brand-dark);border:1px solid rgba(232,127,24,.25);border-radius:999px;padding:7px 12px;cursor:pointer}
+  .chat-quick button:hover{background:rgba(232,127,24,.16)}
+  .chat-foot{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:#fff;flex:0 0 auto}
+  .chat-foot input{flex:1;border:1px solid var(--line);border-radius:10px;padding:11px 13px;font:inherit;font-size:.94rem;color:var(--text)}
+  .chat-foot input:focus{outline:none;border-color:var(--brand)}
+  .chat-foot button{border:none;background:var(--brand);color:#fff;border-radius:10px;width:44px;flex:0 0 auto;display:grid;place-items:center;cursor:pointer}
+  .chat-foot button:disabled{opacity:.45;cursor:default}
+  .chat-foot button svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none}
+  .chat-note{font-size:.7rem;color:var(--muted);text-align:center;padding:0 12px 9px;background:#fff}
+  @media (prefers-reduced-motion: reduce){.chat-panel.open{animation:none}}
 </style>
 </head>
 <body>
@@ -594,6 +626,33 @@
   <svg viewBox="0 0 32 32"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.9 1 1-4.8-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C5 9.5 9.9 4.6 16 4.6S27 9.5 27 15.6 22.1 24.8 16 24.8zm6.1-7.4c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.7-.8-2.8-1.5-3.9-3.4-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2 .9 2.8.9 3.8.8.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4z"/></svg>
 </a>
 
+<!-- CHAT IA -->
+<button class="chat-fab" id="chatFab" aria-label="Abrir chat com a assistente da Agizze">
+  <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.4 7.6L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5z"/></svg>
+  Fale com a Agizze
+</button>
+<section class="chat-panel" id="chatPanel" aria-label="Chat com a assistente virtual da Agizze">
+  <header class="chat-head">
+    <div class="av"><img src="assets/agizze-symbol-orange.png" alt="" /></div>
+    <div>
+      <b>Assistente Agizze</b>
+      <div class="st"><i>●</i> online · responde na hora</div>
+    </div>
+    <button class="chat-x" id="chatClose" aria-label="Fechar chat">&times;</button>
+  </header>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick" id="chatQuick">
+    <button type="button" data-q="Sou uma empresa e preciso contratar ou terceirizar equipe.">Sou empresa</button>
+    <button type="button" data-q="Estou procurando uma vaga de emprego.">Procuro vaga</button>
+    <button type="button" data-q="Quais serviços a Agizze oferece?">O que vocês fazem?</button>
+  </div>
+  <form class="chat-foot" id="chatForm">
+    <input id="chatInput" type="text" autocomplete="off" placeholder="Escreva sua mensagem…" maxlength="800" />
+    <button type="submit" id="chatSend" aria-label="Enviar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </form>
+  <div class="chat-note">Atendimento por IA, pode cometer erros. Para falar com uma pessoa, use o WhatsApp.</div>
+</section>
+
 <script>
   // Menu mobile (hambúrguer)
   var navToggle=document.querySelector('.nav-toggle'), navLinks=document.getElementById('nav-links');
@@ -703,6 +762,53 @@
     },{rootMargin:'-45% 0px -50% 0px'});
     Object.keys(map).forEach(function(id){ so.observe(document.getElementById(id)); });
   }
+
+  // ===== Chat IA =====
+  (function(){
+    var fab=document.getElementById('chatFab'), panel=document.getElementById('chatPanel'),
+        body=document.getElementById('chatBody'), form=document.getElementById('chatForm'),
+        input=document.getElementById('chatInput'), closeBtn=document.getElementById('chatClose'),
+        quick=document.getElementById('chatQuick'), sendBtn=document.getElementById('chatSend');
+    if(!fab||!panel) return;
+    var history=[], greeted=false, busy=false;
+
+    function scrollDown(){ body.scrollTop=body.scrollHeight; }
+    function addMsg(text, who){
+      var d=document.createElement('div'); d.className='msg '+who; d.textContent=text; body.appendChild(d); scrollDown(); return d;
+    }
+    function openChat(){
+      panel.classList.add('open'); fab.classList.add('hide');
+      if(!greeted){ greeted=true; addMsg('Oi! Sou a assistente virtual da Agizze. 🙂\nVocê é uma empresa que precisa contratar ou está procurando uma vaga?','bot'); }
+      setTimeout(function(){ input.focus(); }, 60);
+    }
+    function closeChat(){ panel.classList.remove('open'); fab.classList.remove('hide'); }
+    fab.addEventListener('click', openChat);
+    closeBtn.addEventListener('click', closeChat);
+
+    function send(text){
+      text=(text||'').trim();
+      if(busy || !text) return;
+      if(quick) quick.style.display='none';
+      addMsg(text,'me'); history.push({role:'user',content:text});
+      input.value=''; busy=true; sendBtn.disabled=true;
+      var typing=addMsg('digitando…','typing');
+      fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:history})})
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          typing.remove();
+          var reply=(data&&data.reply)?data.reply:'Desculpe, não consegui responder agora. Fale no WhatsApp (47) 99655-8404.';
+          addMsg(reply,'bot'); history.push({role:'assistant',content:reply});
+        })
+        .catch(function(){
+          typing.remove();
+          addMsg('Estou com um problema de conexão. Fale com a gente no WhatsApp (47) 99655-8404.','bot');
+        })
+        .finally(function(){ busy=false; sendBtn.disabled=false; input.focus(); });
+    }
+    form.addEventListener('submit',function(e){ e.preventDefault(); send(input.value); });
+    quick.addEventListener('click',function(e){ var b=e.target.closest('button[data-q]'); if(b) send(b.getAttribute('data-q')); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape' && panel.classList.contains('open')) closeChat(); });
+  })();
 </script>
 </body>
 </html>
