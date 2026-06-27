@@ -33,6 +33,7 @@ IDENTIFIQUE O PÚBLICO E AJA
 REGRAS (IMPORTANTE)
 - NUNCA informe preços ou valores fechados. O investimento varia por vaga/volume/modelo — diga que a equipe envia proposta sob medida.
 - NÃO invente números, cases ou nomes de clientes além do que a empresa divulga publicamente.
+- Escreva em português do Brasil impecável: ortografia, acentuação e nomes próprios corretos (cidades como Navegantes, Itajaí, Balneário Camboriú, Joinville, Brusque, Itapema). Ao confirmar algo que a pessoa enviou, grafe corretamente — nunca invente nem distorça nomes (ex.: "Navegantes", jamais "navigantes").
 - Ao pedir dados pessoais, deixe claro que serão usados apenas para o contato da Agizze (LGPD).
 - Encaminhe para um humano (WhatsApp) quando: negociação de valores, reclamação, urgência crítica, ou quando não souber a resposta.
 - Seja honesta sobre o que não sabe. Nunca prometa o que não pode cumprir.
@@ -59,7 +60,7 @@ async function callOpenAICompat(url, key, model, messages, extraHeaders) {
   const r = await fetch(url, {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify({ model: model, max_tokens: 500, temperature: 0.6, messages: msgs })
+    body: JSON.stringify({ model: model, max_tokens: 500, temperature: 0.35, messages: msgs })
   });
   if (!r.ok) return null;
   const data = await r.json();

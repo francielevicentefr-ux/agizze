@@ -14,6 +14,8 @@ module.exports = async function handler(req, res) {
 
   const messages = Array.isArray(p.messages) ? p.messages.slice(-20) : [];
   const page = String(p.page || 'site').slice(0, 120);
+  const sessionId = p.session_id ? String(p.session_id).slice(0, 80) : '';
+  const notify = !!p.notify;
   if (!messages.length) { res.status(200).json({ ok: true }); return; }
 
   const transcript = messages.map(function (m) {
@@ -31,7 +33,7 @@ module.exports = async function handler(req, res) {
   const env = process.env;
   const tasks = [];
 
-  if (env.LEAD_WEBHOOK_URL) {
+  if (notify && env.LEAD_WEBHOOK_URL) {
     tasks.push(fetch(env.LEAD_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -40,7 +42,7 @@ module.exports = async function handler(req, res) {
   }
 
   // WhatsApp direto via Evolution API (sem n8n)
-  if (env.EVOLUTION_URL && env.EVOLUTION_INSTANCE && env.EVOLUTION_APIKEY && env.COMERCIAL_NUMBER) {
+  if (notify && env.EVOLUTION_URL && env.EVOLUTION_INSTANCE && env.EVOLUTION_APIKEY && env.COMERCIAL_NUMBER) {
     const base = env.EVOLUTION_URL.replace(/\/+$/, '');
     const url = base + '/message/sendText/' + env.EVOLUTION_INSTANCE;
     const headers = { 'content-type': 'application/json', apikey: env.EVOLUTION_APIKEY };
@@ -55,7 +57,7 @@ module.exports = async function handler(req, res) {
     })());
   }
 
-  if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
+  if (notify && env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
     tasks.push(fetch('https://api.telegram.org/bot' + env.TELEGRAM_BOT_TOKEN + '/sendMessage', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -64,16 +66,21 @@ module.exports = async function handler(req, res) {
   }
 
   if (env.SUPABASE_URL && env.SUPABASE_SERVICE_KEY) {
-    tasks.push(fetch(env.SUPABASE_URL.replace(/\/+$/, '') + '/rest/v1/leads_chat', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        apikey: env.SUPABASE_SERVICE_KEY,
-        authorization: 'Bearer ' + env.SUPABASE_SERVICE_KEY,
-        Prefer: 'return=minimal'
-      },
-      body: JSON.stringify({ page: page, phone: phone || null, transcript: transcript })
-    }).catch(function () {}));
+    const sb = env.SUPABASE_URL.replace(/\/+$/, '');
+    const row = { page: page, phone: phone || null, transcript: transcript, atualizado_em: new Date().toISOString() };
+    let sbUrl = sb + '/rest/v1/leads_chat';
+    const sbHeaders = {
+      'content-type': 'application/json',
+      apikey: env.SUPABASE_SERVICE_KEY,
+      authorization: 'Bearer ' + env.SUPABASE_SERVICE_KEY,
+      Prefer: 'return=minimal'
+    };
+    if (sessionId) {
+      row.session_id = sessionId;
+      sbUrl += '?on_conflict=session_id';
+      sbHeaders.Prefer = 'resolution=merge-duplicates,return=minimal';
+    }
+    tasks.push(fetch(sbUrl, { method: 'POST', headers: sbHeaders, body: JSON.stringify(row) }).catch(function () {}));
   }
 
   try { await Promise.all(tasks); } catch (e) {}

@@ -373,8 +373,9 @@
         input=document.getElementById('chatInput'), closeBtn=document.getElementById('chatClose'),
         quick=document.getElementById('chatQuick'), sendBtn=document.getElementById('chatSend');
     if(!fab||!panel) return;
-    var history=[], greeted=false, busy=false, notified=false, userCount=0;
-    function notifyLead(){ if(notified) return; notified=true; fetch('/api/lead',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:history,page:location.pathname})}).catch(function(){}); }
+    var history=[], greeted=false, busy=false, pushed=false;
+    var sessionId='sess-'+Math.random().toString(36).slice(2)+Date.now().toString(36);
+    function syncLead(notify){ fetch('/api/lead',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:history,page:location.pathname,session_id:sessionId,notify:!!notify})}).catch(function(){}); }
     function scrollDown(){ body.scrollTop=body.scrollHeight; }
     function addMsg(text, who){ var d=document.createElement('div'); d.className='msg '+who; d.textContent=text; body.appendChild(d); scrollDown(); return d; }
     function openChat(){
@@ -389,8 +390,7 @@
       text=(text||'').trim();
       if(busy || !text) return;
       if(quick) quick.style.display='none';
-      addMsg(text,'me'); history.push({role:'user',content:text}); userCount++;
-      if(userCount>=2) notifyLead();
+      addMsg(text,'me'); history.push({role:'user',content:text});
       input.value=''; busy=true; sendBtn.disabled=true;
       var typing=addMsg('digitando…','typing');
       fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:history})})
@@ -399,12 +399,13 @@
           typing.remove();
           var reply=(data&&data.reply)?data.reply:'Desculpe, não consegui responder agora. Fale no WhatsApp (47) 99655-8404.';
           addMsg(reply,'bot'); history.push({role:'assistant',content:reply});
+          syncLead(!pushed); pushed=true;
         })
         .catch(function(){ typing.remove(); addMsg('Estou com um problema de conexão. Fale com a gente no WhatsApp (47) 99655-8404.','bot'); })
         .finally(function(){ busy=false; sendBtn.disabled=false; input.focus(); });
     }
     form.addEventListener('submit',function(e){ e.preventDefault(); send(input.value); });
-    quick.addEventListener('click',function(e){ var b=e.target.closest('button[data-q]'); if(b){ if(b.getAttribute('data-handoff')) notifyLead(); send(b.getAttribute('data-q')); } });
+    quick.addEventListener('click',function(e){ var b=e.target.closest('button[data-q]'); if(b){ if(b.getAttribute('data-handoff')){ pushed=true; syncLead(true); } send(b.getAttribute('data-q')); } });
     document.addEventListener('keydown',function(e){ if(e.key==='Escape' && panel.classList.contains('open')) closeChat(); });
   })();
 </script>
