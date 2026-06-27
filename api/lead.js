@@ -39,6 +39,22 @@ module.exports = async function handler(req, res) {
     }).catch(function () {}));
   }
 
+  // WhatsApp direto via Evolution API (sem n8n)
+  if (env.EVOLUTION_URL && env.EVOLUTION_INSTANCE && env.EVOLUTION_APIKEY && env.COMERCIAL_NUMBER) {
+    const base = env.EVOLUTION_URL.replace(/\/+$/, '');
+    const url = base + '/message/sendText/' + env.EVOLUTION_INSTANCE;
+    const headers = { 'content-type': 'application/json', apikey: env.EVOLUTION_APIKEY };
+    tasks.push((async function () {
+      try {
+        let r = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify({ number: env.COMERCIAL_NUMBER, text: text }) });
+        if (!r || !r.ok) {
+          // fallback formato Evolution v1
+          await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify({ number: env.COMERCIAL_NUMBER, textMessage: { text: text } }) });
+        }
+      } catch (e) {}
+    })());
+  }
+
   if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
     tasks.push(fetch('https://api.telegram.org/bot' + env.TELEGRAM_BOT_TOKEN + '/sendMessage', {
       method: 'POST',
