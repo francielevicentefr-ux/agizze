@@ -1,8 +1,10 @@
 // Função serverless (Vercel) — assistente de IA da Agizze.
-// Suporta Google Gemini (free tier) OU Anthropic Claude. A chave fica só no servidor.
-//   - GEMINI_API_KEY  -> usa Google Gemini (gratuito)   [preferencial]
-//   - ANTHROPIC_API_KEY -> usa Claude
-// Modelo opcional via AI_MODEL (default: gemini-2.0-flash).
+// Aceita a chave de qualquer um destes provedores (a chave fica só no servidor):
+//   - GROQ_API_KEY        -> Groq (gratuito, sem cartão)        [recomendado]
+//   - OPENROUTER_API_KEY  -> OpenRouter (tem modelos :free)
+//   - GEMINI_API_KEY      -> Google Gemini (free tier)
+//   - ANTHROPIC_API_KEY   -> Claude (pago)
+// Modelo opcional via AI_MODEL.
 
 const SYSTEM = `Você é a assistente virtual de atendimento da AGIZZE, empresa de terceirização logística e recrutamento & seleção de Santa Catarina. Você atende pelo chat do site.
 
@@ -37,15 +39,26 @@ OBJETIVO
 
 function readMessages(payload) {
   const incoming = Array.isArray(payload.messages) ? payload.messages : [];
-  return incoming
-    .slice(-12)
-    .map(function (m) {
-      return {
-        role: m && m.role === 'assistant' ? 'assistant' : 'user',
-        content: String((m && m.content) || '').slice(0, 2000)
-      };
-    })
-    .filter(function (m) { return m.content.length > 0; });
+  return incoming.slice(-12).map(function (m) {
+    return {
+      role: m && m.role === 'assistant' ? 'assistant' : 'user',
+      content: String((m && m.content) || '').slice(0, 2000)
+    };
+  }).filter(function (m) { return m.content.length > 0; });
+}
+
+// OpenAI-compatible (Groq, OpenRouter)
+async function callOpenAICompat(url, key, model, messages, extraHeaders) {
+  const msgs = [{ role: 'system', content: SYSTEM }].concat(messages);
+  const headers = Object.assign({ 'content-type': 'application/json', authorization: 'Bearer ' + key }, extraHeaders || {});
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({ model: model, max_tokens: 500, temperature: 0.6, messages: msgs })
+  });
+  if (!r.ok) return null;
+  const data = await r.json();
+  try { return (data.choices[0].message.content || '').trim() || null; } catch (e) { return null; }
 }
 
 async function callGemini(key, model, messages) {
@@ -65,21 +78,15 @@ async function callGemini(key, model, messages) {
   });
   if (!r.ok) return null;
   const data = await r.json();
-  try {
-    return data.candidates[0].content.parts.map(function (p) { return p.text || ''; }).join('').trim() || null;
-  } catch (e) { return null; }
+  try { return data.candidates[0].content.parts.map(function (p) { return p.text || ''; }).join('').trim() || null; }
+  catch (e) { return null; }
 }
 
 async function callClaude(key, model, messages) {
   const r = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
-    body: JSON.stringify({
-      model: model || 'claude-sonnet-4-6',
-      max_tokens: 500,
-      system: SYSTEM,
-      messages: messages.map(function (m) { return { role: m.role, content: m.content }; })
-    })
+    body: JSON.stringify({ model: model || 'claude-sonnet-4-6', max_tokens: 500, system: SYSTEM, messages: messages })
   });
   if (!r.ok) return null;
   const data = await r.json();
@@ -89,12 +96,10 @@ async function callClaude(key, model, messages) {
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
 
-  const gemKey = process.env.GEMINI_API_KEY;
-  const claudeKey = process.env.ANTHROPIC_API_KEY;
-  if (!gemKey && !claudeKey) {
-    res.status(200).json({
-      reply: 'O atendimento por IA está sendo configurado. Enquanto isso, fale com a gente no WhatsApp (47) 99655-8404 ou pelo formulário do site. 🙂'
-    });
+  const env = process.env;
+  const hasKey = env.GROQ_API_KEY || env.OPENROUTER_API_KEY || env.GEMINI_API_KEY || env.ANTHROPIC_API_KEY;
+  if (!hasKey) {
+    res.status(200).json({ reply: 'O atendimento por IA está sendo configurado. Enquanto isso, fale com a gente no WhatsApp (47) 99655-8404 ou pelo formulário do site. 🙂' });
     return;
   }
 
@@ -110,19 +115,21 @@ module.exports = async function handler(req, res) {
 
   try {
     let reply = null;
-    if (gemKey) {
-      reply = await callGemini(gemKey, process.env.AI_MODEL || 'gemini-2.0-flash', messages);
+    if (env.GROQ_API_KEY) {
+      reply = await callOpenAICompat('https://api.groq.com/openai/v1/chat/completions', env.GROQ_API_KEY, env.AI_MODEL || 'llama-3.3-70b-versatile', messages);
     }
-    if (!reply && claudeKey) {
-      reply = await callClaude(claudeKey, process.env.AI_MODEL, messages);
+    if (!reply && env.OPENROUTER_API_KEY) {
+      reply = await callOpenAICompat('https://openrouter.ai/api/v1/chat/completions', env.OPENROUTER_API_KEY, env.AI_MODEL || 'meta-llama/llama-3.3-70b-instruct:free', messages, { 'HTTP-Referer': 'https://agizze.vercel.app', 'X-Title': 'Agizze' });
     }
-    if (!reply) {
-      reply = 'Tive um problema técnico agora. Pode tentar de novo, ou falar no WhatsApp (47) 99655-8404.';
+    if (!reply && env.GEMINI_API_KEY) {
+      reply = await callGemini(env.GEMINI_API_KEY, env.AI_MODEL || 'gemini-2.0-flash', messages);
     }
+    if (!reply && env.ANTHROPIC_API_KEY) {
+      reply = await callClaude(env.ANTHROPIC_API_KEY, env.AI_MODEL, messages);
+    }
+    if (!reply) reply = 'Tive um problema técnico agora. Pode tentar de novo, ou falar no WhatsApp (47) 99655-8404.';
     res.status(200).json({ reply: reply });
   } catch (e) {
-    res.status(200).json({
-      reply: 'Estou com um problema técnico no momento. Fale com a gente no WhatsApp (47) 99655-8404 que a equipe te atende. 🙂'
-    });
+    res.status(200).json({ reply: 'Estou com um problema técnico no momento. Fale com a gente no WhatsApp (47) 99655-8404 que a equipe te atende. 🙂' });
   }
 };
