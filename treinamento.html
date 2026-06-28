@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vídeo-aula — Treinamento do Comercial · Agizze</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/png" href="assets/agizze-symbol-orange.png" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{--brand:#E87F18;--brand-2:#FD8F3A;--navy:#0C1726;--navy-2:#13233b;--line:rgba(255,255,255,.12)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:'Outfit',system-ui,sans-serif;background:var(--navy);color:#fff;display:flex;flex-direction:column;overflow:hidden}
+  a{color:inherit}
+
+  .bar-top{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--line);flex:0 0 auto}
+  .bar-top img{height:24px}
+  .bar-top .t{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-2);font-weight:700}
+  .bar-top .right{margin-left:auto;font-size:.82rem;color:rgba(255,255,255,.5)}
+
+  /* progress */
+  .prog{height:4px;background:rgba(255,255,255,.1);flex:0 0 auto}
+  .prog .fill{height:100%;background:var(--brand);width:0;transition:width .4s ease}
+
+  /* STAGE */
+  .stage{flex:1;position:relative;display:grid;place-items:center;padding:5vh 6vw;overflow:hidden}
+  .stage::before{content:"";position:absolute;inset:0;background:radial-gradient(800px 420px at 80% -10%,rgba(232,127,24,.18),transparent 60%),radial-gradient(600px 360px at 5% 110%,rgba(19,65,132,.35),transparent 60%);z-index:0}
+  .slide{position:relative;z-index:1;max-width:920px;width:100%;text-align:left;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+  .slide.in{opacity:1;transform:none}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--brand-2);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px}
+  .eyebrow .n{width:26px;height:26px;border-radius:7px;background:rgba(232,127,24,.16);display:grid;place-items:center;color:var(--brand-2);font-size:.8rem}
+  h2{font-size:clamp(1.9rem,5vw,3.4rem);font-weight:800;letter-spacing:-.03em;line-height:1.06;margin-bottom:22px}
+  h2 em{color:var(--brand);font-style:normal}
+  .points{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
+  .points li{display:flex;gap:12px;align-items:flex-start;font-size:clamp(1rem,2vw,1.25rem);color:rgba(255,255,255,.92)}
+  .points svg{width:20px;height:20px;stroke:var(--brand);stroke-width:2.4;fill:none;flex:0 0 auto;margin-top:6px}
+  .caption{border-left:3px solid var(--brand);padding-left:16px;color:rgba(255,255,255,.6);font-size:clamp(.95rem,1.8vw,1.1rem);max-width:760px}
+  .cover{text-align:center}
+  .cover img{height:48px;margin-bottom:24px}
+  .cover .sig{font-weight:700;color:var(--brand-2);letter-spacing:.16em;text-transform:uppercase;font-size:.9rem;margin-top:10px}
+
+  /* CONTROLS */
+  .controls{flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:14px 22px;border-top:1px solid var(--line);background:var(--navy-2)}
+  .controls button{background:rgba(255,255,255,.08);border:1px solid var(--line);color:#fff;border-radius:9px;width:44px;height:44px;display:grid;place-items:center;cursor:pointer;transition:background .15s}
+  .controls button:hover{background:rgba(255,255,255,.16)}
+  .controls button.play{background:var(--brand);border-color:var(--brand);width:auto;padding:0 22px;font:inherit;font-weight:700;gap:8px}
+  .controls button.play:hover{background:#cf6f10}
+  .controls svg{width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none}
+  .controls .play svg{fill:#fff;stroke:none}
+  .controls .count{color:rgba(255,255,255,.6);font-size:.88rem;margin-left:6px}
+  .controls .spacer{margin-left:auto}
+  .toggle{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:rgba(255,255,255,.7);cursor:pointer}
+  .toggle input{width:16px;height:16px;accent-color:var(--brand)}
+  .hint{font-size:.78rem;color:rgba(255,255,255,.4);padding:6px 22px 12px;background:var(--navy-2)}
+  @media(max-width:640px){.controls .lbl,.controls .count,.toggle .lbl{display:none}}
+</style>
+</head>
+<body>
+  <div class="bar-top">
+    <img src="assets/agizze-logo-white.png" alt="Agizze" />
+    <span class="t">Vídeo-aula · Treinamento do comercial</span>
+    <span class="right">Aperte ▶ para começar</span>
+  </div>
+  <div class="prog"><div class="fill" id="fill"></div></div>
+
+  <div class="stage">
+    <div class="slide" id="slide"></div>
+  </div>
+
+  <div class="controls">
+    <button id="prev" title="Anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button class="play" id="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> <span class="lbl">Reproduzir</span></button>
+    <button id="next" title="Próximo"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+    <button id="restart" title="Recomeçar"><svg viewBox="0 0 24 24"><path d="M4 4v6h6"/><path d="M20 20v-6h-6"/><path d="M20 9a8 8 0 00-14-3M4 15a8 8 0 0014 3"/></svg></button>
+    <span class="count" id="count">1 / 8</span>
+    <span class="spacer"></span>
+    <label class="toggle"><input type="checkbox" id="narr" checked> <span class="lbl">Narração por voz</span></label>
+    <button id="full" title="Tela cheia"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  </div>
+  <div class="hint">Dica: clique em <b>Tela cheia</b> e grave a tela (QuickTime, Loom ou OBS) para exportar como vídeo .mp4. A narração é lida pelo navegador em português.</div>
+
+<script>
+  var chk='<svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>';
+  var slides=[
+    { cover:true, html:'<div class="cover"><img src="assets/agizze-logo-white.png" alt="Agizze"><h2>Treinamento do <em>Comercial</em></h2><div class="caption" style="border:none;padding:0;margin:0 auto">Em poucos minutos, você aprende a transformar cada contato do site em cliente.</div><div class="sig">Oportunidades que movem histórias</div></div>',
+      narr:'Bem-vindo ao time comercial da Agizze. Em poucos minutos, você vai aprender a transformar cada contato do nosso site em cliente e em contratação. Bora?' },
+
+    { eb:'1 · Como o site traz clientes', h:'O site trabalha <em>24 horas</em> por você',
+      points:['Chat com IA: atende, tira dúvidas e capta nome e WhatsApp','Formulários: proposta (empresas) e Banco de Talentos (candidatos)','Portal de Vagas: candidatos se candidatam'],
+      cap:'Tudo o que vem do chat aparece para você no Painel de Leads.',
+      narr:'O nosso site trabalha vinte e quatro horas por dia captando contatos, de três formas. Primeiro: o chat com inteligência artificial, que atende, tira dúvidas e pega o nome e o WhatsApp. Segundo: os formulários. E terceiro: o portal de vagas. Tudo o que vem do chat aparece para você no Painel de Leads.' },
+
+    { eb:'2 · Painel de leads', h:'Seu <em>centro de comando</em>',
+      points:['Entre com a senha do comercial','Veja origem, telefone, conversa e horário','Clique em "Chamar no WhatsApp" — abre com mensagem pronta','Atualiza sozinho a cada 20 segundos'],
+      cap:'É aqui que o seu dia a dia acontece.',
+      narr:'O seu dia a dia acontece aqui, no Painel de Leads. Você entra com a senha do comercial e vê cada contato em tempo real: de onde veio, o telefone, a conversa completa e o horário. Para falar com o cliente, é só clicar em chamar no WhatsApp. E o painel se atualiza sozinho a cada vinte segundos.' },
+
+    { eb:'3 · Atender empresa', h:'Velocidade <em>fecha negócio</em>',
+      points:['Confirme cidade, nº de vagas, funções e urgência','Resposta em 24h · início em 7 dias · reposição em 48h','Envie a proposta sob medida'],
+      cap:'Use os nossos prazos a seu favor no contato.',
+      narr:'Quando o contato é uma empresa, velocidade é tudo. Confirme a cidade da operação, quantas vagas, quais funções e a urgência. E use os nossos números a seu favor: respondemos uma demanda em até vinte e quatro horas, iniciamos a operação em até sete dias e repomos uma vaga em até quarenta e oito horas. Depois, envie a proposta sob medida.' },
+
+    { eb:'4 · Atender candidato', h:'Cada vaga é <em>uma vida</em>',
+      points:['Direcione ao Portal de Vagas e ao Banco de Talentos (gratuito)','Pergunte área, cidade e experiência','A triagem segue com o RH'],
+      cap:'Clareza e respeito do início ao fim.',
+      narr:'Se o contato é um candidato, o caminho é outro: direcione para o portal de vagas e para o cadastro no Banco de Talentos, que é gratuito. Pergunte a área de interesse, a cidade e a experiência. A partir daí, o RH assume a triagem.' },
+
+    { eb:'5 · A assistente de IA', h:'A IA <em>capta</em>, você <em>fecha</em>',
+      points:['Ela atende 24/7, qualifica e capta os dados','Ela NÃO passa preço e NÃO negocia','Assuma a conversa em negociação, demanda concreta ou reclamação'],
+      cap:'A própria assistente orienta o cliente a falar com você.',
+      narr:'A nossa assistente virtual atende sozinha, qualifica o contato e capta os dados. Mas atenção: ela nunca passa preço e nunca negocia. Isso é sempre com você. Sempre que houver negociação, uma demanda concreta ou uma reclamação, assuma a conversa.' },
+
+    { eb:'6 · Rotina e boas práticas', h:'Simples e <em>todo dia</em>',
+      points:['Abra o painel no início do dia','Responda os novos contatos o quanto antes','Registre o andamento e faça follow-up','Termine toda conversa com um próximo passo claro'],
+      cap:'Responda rápido e fale na voz da marca.',
+      narr:'A rotina é simples: abra o painel no início do dia, responda os novos contatos o quanto antes, registre o andamento e faça o follow-up de quem não respondeu. Responda rápido, fale na voz da marca e termine toda conversa com um próximo passo claro.' },
+
+    { cover:true, html:'<div class="cover"><img src="assets/agizze-logo-white.png" alt="Agizze"><h2>Chamou, <em>a gente agizza</em>.</h2><div class="caption" style="border:none;padding:0;margin:0 auto">Tem um manual completo dentro do painel sempre que precisar. Cada contato é uma oportunidade.</div></div>',
+      narr:'Pronto! Tem um manual completo dentro do painel, sempre que precisar. Agora é com você: cada contato é uma oportunidade. Chamou, a gente agizza.' }
+  ];
+
+  var idx=0, playing=false, advanced=false, fallback=null;
+  var synth=('speechSynthesis' in window)?window.speechSynthesis:null, ptVoice=null;
+  function loadVoices(){ if(!synth)return; var v=synth.getVoices(); ptVoice=v.filter(function(x){return /pt[-_]?BR/i.test(x.lang);})[0] || v.filter(function(x){return /^pt/i.test(x.lang);})[0] || null; }
+  if(synth){ loadVoices(); synth.onvoiceschanged=loadVoices; }
+
+  var slideEl=document.getElementById('slide'), countEl=document.getElementById('count'),
+      fillEl=document.getElementById('fill'), playBtn=document.getElementById('play'),
+      narrChk=document.getElementById('narr');
+
+  function buildPoints(arr){ return '<ul class="points">'+arr.map(function(p){return '<li>'+chk+'<span>'+p+'</span></li>';}).join('')+'</ul>'; }
+  function render(){
+    var s=slides[idx];
+    var html = s.cover ? s.html :
+      '<div class="eyebrow"><span class="n">'+(idx)+'</span> '+s.eb.split(' · ')[1]+'</div>'+
+      '<h2>'+s.h+'</h2>'+ buildPoints(s.points||[]) +
+      (s.cap?'<div class="caption">'+s.cap+'</div>':'');
+    slideEl.classList.remove('in'); slideEl.innerHTML=html;
+    void slideEl.offsetWidth; slideEl.classList.add('in');
+    countEl.textContent=(idx+1)+' / '+slides.length;
+    fillEl.style.width=((idx)/(slides.length-1)*100)+'%';
+  }
+  function setPlayIcon(p){ playBtn.innerHTML = p ? '<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg> <span class="lbl">Pausar</span>' : '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> <span class="lbl">Reproduzir</span>'; }
+
+  function clearTimers(){ if(fallback){clearTimeout(fallback);fallback=null;} if(synth)synth.cancel(); }
+  function speakAndAdvance(){
+    advanced=false;
+    var s=slides[idx];
+    var dur=Math.max(5000, s.narr.length*65);
+    function adv(){ if(advanced||!playing)return; advanced=true; goNext(true); }
+    if(narrChk.checked && synth){
+      var u=new SpeechSynthesisUtterance(s.narr);
+      u.lang='pt-BR'; if(ptVoice)u.voice=ptVoice; u.rate=1; u.pitch=1;
+      u.onend=adv;
+      synth.cancel(); synth.speak(u);
+      fallback=setTimeout(adv, s.narr.length*95+4000);
+    } else {
+      fallback=setTimeout(adv, dur);
+    }
+  }
+  function play(){ playing=true; setPlayIcon(true); document.querySelector('.bar-top .right').textContent='Reproduzindo…'; speakAndAdvance(); }
+  function pause(){ playing=false; setPlayIcon(false); clearTimers(); }
+  function goNext(auto){ clearTimers(); if(idx<slides.length-1){ idx++; render(); if(playing) speakAndAdvance(); } else { pause(); fillEl.style.width='100%'; document.querySelector('.bar-top .right').textContent='Fim — recomece quando quiser'; } }
+  function goPrev(){ clearTimers(); if(idx>0){ idx--; render(); if(playing) speakAndAdvance(); } }
+
+  playBtn.addEventListener('click', function(){ playing?pause():play(); });
+  document.getElementById('next').addEventListener('click', function(){ goNext(false); });
+  document.getElementById('prev').addEventListener('click', goPrev);
+  document.getElementById('restart').addEventListener('click', function(){ clearTimers(); idx=0; render(); if(playing) speakAndAdvance(); });
+  document.getElementById('full').addEventListener('click', function(){ if(!document.fullscreenElement){ document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); } else { document.exitFullscreen&&document.exitFullscreen(); } });
+  narrChk.addEventListener('change', function(){ if(playing){ clearTimers(); speakAndAdvance(); } });
+  document.addEventListener('keydown', function(e){ if(e.key===' '){ e.preventDefault(); playing?pause():play(); } else if(e.key==='ArrowRight'){ goNext(false); } else if(e.key==='ArrowLeft'){ goPrev(); } });
+
+  render();
+</script>
+</body>
+</html>
