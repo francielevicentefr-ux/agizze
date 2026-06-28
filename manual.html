@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Manual do Comercial — Agizze</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/png" href="assets/agizze-symbol-orange.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --brand:#E87F18;--brand-2:#FD8F3A;--brand-dark:#cf6f10;--brand-soft:rgba(232,127,24,.1);
+    --navy:#0C1726;--navy-2:#13233b;--text:#16233a;--muted:#525c6b;--line:#e7e9ee;--bg:#fff;--bg-soft:#f5f6f8;--max:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Outfit',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;font:inherit;font-weight:600;font-size:.92rem;padding:10px 18px;border-radius:8px;border:none;cursor:pointer;transition:background .15s}
+  .btn:hover{background:var(--brand-dark)}
+  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.12)}
+
+  /* HEADER */
+  header.top{background:var(--navy);color:#fff;position:sticky;top:0;z-index:40}
+  .top-inner{display:flex;align-items:center;gap:16px;height:66px}
+  .top img{height:26px}
+  .top .ttl{font-weight:700;font-size:1rem;letter-spacing:.01em}
+  .top .ttl span{color:var(--brand-2);font-weight:500;display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+  .top .actions{margin-left:auto;display:flex;gap:10px}
+  @media(max-width:640px){.top .actions .lbl{display:none} .top .ttl span{display:none}}
+
+  /* LAYOUT */
+  .layout{display:grid;grid-template-columns:240px 1fr;gap:40px;align-items:start;padding:34px 0 80px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr;gap:0}}
+  /* SIDEBAR */
+  .side{position:sticky;top:90px}
+  .side h4{font-size:.74rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:12px}
+  .side a{display:block;padding:9px 12px;border-radius:8px;color:var(--muted);font-size:.93rem;font-weight:500;border-left:2px solid transparent}
+  .side a:hover{color:var(--text);background:var(--bg-soft)}
+  .side a.active{color:var(--brand-dark);background:var(--brand-soft);border-left-color:var(--brand);font-weight:600}
+  @media(max-width:900px){
+    .side{position:sticky;top:66px;z-index:30;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);margin:0 -24px;padding:10px 24px;border-bottom:1px solid var(--line)}
+    .side h4{display:none}
+    .side nav{display:flex;gap:8px;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+    .side a{border-left:none;padding:8px 12px;flex:0 0 auto}
+    .side a.active{border-left:none}
+  }
+
+  /* CONTENT */
+  main{min-width:0}
+  section.bloco{padding:14px 0 40px;border-bottom:1px solid var(--line)}
+  section.bloco:last-of-type{border-bottom:none}
+  .kicker{display:inline-flex;align-items:center;gap:8px;color:var(--brand-dark);font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
+  .kicker .n{width:24px;height:24px;border-radius:6px;background:var(--brand-soft);display:grid;place-items:center;color:var(--brand-dark);font-size:.78rem}
+  h1{font-size:clamp(1.7rem,3.4vw,2.3rem);font-weight:800;letter-spacing:-.02em;color:var(--navy);margin-bottom:8px}
+  h2{font-size:clamp(1.35rem,2.6vw,1.7rem);font-weight:800;letter-spacing:-.01em;color:var(--navy);margin-bottom:12px}
+  h3{font-size:1.05rem;font-weight:700;color:var(--navy);margin:18px 0 8px}
+  p{margin-bottom:12px;color:#26303f}
+  .lead{color:var(--muted);font-size:1.08rem;max-width:680px;margin-bottom:6px}
+  ul.clean{list-style:none;display:flex;flex-direction:column;gap:8px;margin:8px 0 14px}
+  ul.clean li{display:flex;gap:12px;align-items:flex-start}
+  ul.clean svg{width:18px;height:18px;stroke:var(--brand);stroke-width:2.4;fill:none;flex:0 0 auto;margin-top:4px}
+
+  /* STEP CARDS */
+  .steps{display:flex;flex-direction:column;gap:12px;margin:16px 0}
+  .step{display:flex;gap:14px;align-items:flex-start;background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .step .sn{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;font-size:.85rem;display:grid;place-items:center}
+  .step b{display:block;margin-bottom:2px}
+  .step span{color:var(--muted);font-size:.95rem}
+
+  /* CALLOUT */
+  .callout{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:16px 0;background:#fff}
+  .callout.warn{background:#fff7ee;border-color:#f3d6ab;color:#7a4e12}
+  .callout.tip{background:var(--brand-soft);border-color:rgba(232,127,24,.25)}
+  .callout b{color:var(--navy)}
+
+  /* TEMPLATES (copiar) */
+  .tpl{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:14px 0}
+  .tpl .tpl-h{display:flex;align-items:center;gap:10px;background:var(--bg-soft);padding:11px 16px;border-bottom:1px solid var(--line)}
+  .tpl .tpl-h b{font-size:.95rem;color:var(--navy)}
+  .tpl .copy{margin-left:auto;background:#fff;border:1px solid var(--line);border-radius:7px;padding:6px 12px;font:inherit;font-size:.82rem;cursor:pointer;color:var(--muted)}
+  .tpl .copy:hover{border-color:var(--brand);color:var(--brand-dark)}
+  .tpl pre{margin:0;padding:16px;white-space:pre-wrap;font-family:inherit;font-size:.95rem;color:#26303f}
+
+  /* CHECKLIST */
+  .check{display:flex;flex-direction:column;gap:2px;margin:14px 0}
+  .check label{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:#fff}
+  .check label:hover{border-color:var(--brand)}
+  .check input{margin-top:3px;width:18px;height:18px;accent-color:var(--brand);flex:0 0 auto}
+  .check label.done span{text-decoration:line-through;color:var(--muted)}
+  .reset{background:none;border:none;color:var(--muted);font:inherit;font-size:.84rem;cursor:pointer;text-decoration:underline;margin-top:6px}
+
+  /* FAQ */
+  details{border:1px solid var(--line);border-radius:10px;padding:0 16px;margin-bottom:10px}
+  details[open]{border-color:var(--brand)}
+  summary{cursor:pointer;list-style:none;font-weight:600;padding:15px 0;display:flex;justify-content:space-between;gap:14px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--brand);font-size:1.3rem;line-height:1}
+  details[open] summary::after{content:"–"}
+  details p{padding:0 0 15px;color:var(--muted);font-size:.96rem;margin:0}
+
+  /* LINKS RÁPIDOS */
+  .links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
+  .lk{border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;gap:12px;align-items:center;transition:border-color .15s,transform .15s}
+  .lk:hover{border-color:var(--brand);transform:translateY(-2px)}
+  .lk svg{width:22px;height:22px;stroke:var(--brand);stroke-width:1.8;fill:none;flex:0 0 auto}
+  .lk b{display:block;color:var(--navy);font-size:.96rem}
+  .lk span{color:var(--muted);font-size:.84rem}
+
+  footer{background:var(--navy);color:rgba(255,255,255,.55);padding:30px 0;font-size:.86rem;text-align:center}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <img src="assets/agizze-logo-white.png" alt="Agizze" />
+    <div class="ttl">Manual do Comercial<span>Guia interno</span></div>
+    <div class="actions">
+      <a class="btn" href="leads.html" target="_blank" rel="noopener">Abrir painel de leads</a>
+      <a class="btn btn-ghost" href="index.html" target="_blank" rel="noopener"><span class="lbl">Ver o site</span></a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <h4>Índice</h4>
+    <nav id="toc">
+      <a href="#visao" class="active">Visão geral</a>
+      <a href="#painel">Painel de leads</a>
+      <a href="#empresa">Atender empresa</a>
+      <a href="#candidato">Atender candidato</a>
+      <a href="#ia">A assistente de IA</a>
+      <a href="#modelos">Modelos de mensagem</a>
+      <a href="#rotina">Rotina diária</a>
+      <a href="#praticas">Boas práticas</a>
+      <a href="#faq">Dúvidas</a>
+      <a href="#links">Links rápidos</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="bloco" id="visao">
+      <div class="kicker"><span class="n">1</span> Visão geral</div>
+      <h1>Como o site traz clientes para você</h1>
+      <p class="lead">O site da Agizze trabalha 24 horas captando contatos. Seu papel é receber esses contatos e transformá-los em clientes e contratações.</p>
+      <h3>As 3 fontes de contato</h3>
+      <ul class="clean">
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Chat com IA</b> — a assistente virtual atende quem chega, tira dúvidas, qualifica e pede nome e WhatsApp. Cada conversa vira um <b>lead no painel</b>.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Formulários</b> — "Solicitar proposta" (empresas) e "Banco de Talentos" (candidatos). As respostas chegam no Jotform.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Portal de Vagas</b> — candidatos veem vagas e se candidatam pelo WhatsApp ou se cadastram.</span></li>
+      </ul>
+      <div class="callout tip"><b>O essencial:</b> o seu dia a dia acontece no <b>Painel de Leads</b>. É lá que cada contato do chat aparece, com o telefone e a conversa, pronto para você chamar no WhatsApp.</div>
+    </section>
+
+    <section class="bloco" id="painel">
+      <div class="kicker"><span class="n">2</span> Painel de leads</div>
+      <h2>Seu centro de comando</h2>
+      <p>O painel mostra <b>todos os contatos do chat</b> em tempo real, com a origem, o telefone (quando informado), a conversa e o horário. Atualiza sozinho a cada 20 segundos.</p>
+      <div class="steps">
+        <div class="step"><span class="sn">1</span><div><b>Abra o painel</b><span>Clique em "Abrir painel de leads" no topo desta página (ou acesse o endereço enviado pela gestão).</span></div></div>
+        <div class="step"><span class="sn">2</span><div><b>Entre com a senha</b><span>Use a senha do comercial fornecida internamente pela gestão. Ela fica salva no seu navegador.</span></div></div>
+        <div class="step"><span class="sn">3</span><div><b>Leia o contato</b><span>Cada cartão traz a página de origem, o telefone formatado e a conversa completa com a assistente.</span></div></div>
+        <div class="step"><span class="sn">4</span><div><b>Chame no WhatsApp</b><span>Clique em "Chamar no WhatsApp" — abre a conversa com o cliente já com uma mensagem inicial pronta.</span></div></div>
+        <div class="step"><span class="sn">5</span><div><b>Use "Copiar conversa"</b><span>Copie o histórico para registrar no seu CRM ou repassar a um colega.</span></div></div>
+      </div>
+      <div class="callout warn"><b>Sem telefone no cartão?</b> Acontece quando a pessoa não informou o número no chat. Leia a conversa: muitas vezes ela deixou outra forma de contato, ou você pode aguardar — a assistente é orientada a pedir o WhatsApp.</div>
+    </section>
+
+    <section class="bloco" id="empresa">
+      <div class="kicker"><span class="n">3</span> Atender empresa</div>
+      <h2>Quando o lead é uma empresa</h2>
+      <p>Empresas querem resolver uma operação. Quanto mais rápido e claro o retorno, maior a chance de fechar.</p>
+      <h3>O que confirmar com o cliente</h3>
+      <ul class="clean">
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Empresa e cidade da operação</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Quantas vagas e quais funções (câmara fria, separação, conferência, carga…)</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Tipo de contratação (terceirização, temporário, CLT) e urgência</span></li>
+      </ul>
+      <div class="callout"><b>Compromisso da Agizze:</b> resposta a uma demanda em até <b>24h</b>, início da operação em até <b>7 dias</b> e reposição de vaga em até <b>48h</b>. Use isso a seu favor no contato.</div>
+    </section>
+
+    <section class="bloco" id="candidato">
+      <div class="kicker"><span class="n">4</span> Atender candidato</div>
+      <h2>Quando o lead é um candidato</h2>
+      <p>Candidatos buscam vaga. O objetivo é levá-los ao caminho certo com clareza e respeito (cada vaga é uma vida).</p>
+      <ul class="clean">
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Direcione para o <b>Portal de Vagas</b> e para o <b>cadastro no Banco de Talentos</b> (é gratuito).</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Pergunte a <b>área de interesse</b>, a <b>cidade</b> e a <b>experiência</b>.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Cadastros entram no banco de talentos para as próximas oportunidades.</span></li>
+      </ul>
+    </section>
+
+    <section class="bloco" id="ia">
+      <div class="kicker"><span class="n">5</span> A assistente de IA</div>
+      <h2>O que a assistente faz (e o que não faz)</h2>
+      <h3>Ela faz</h3>
+      <ul class="clean">
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Atende 24/7, explica os serviços, identifica se é empresa ou candidato e capta nome e WhatsApp.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Registra tudo no painel e avisa que o comercial vai retornar.</span></li>
+      </ul>
+      <h3>Ela NÃO faz (é com você)</h3>
+      <ul class="clean">
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Não passa preços nem fecha valores — isso é sempre do comercial.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span>Não negocia, não resolve reclamação e não inventa informação.</span></li>
+      </ul>
+      <div class="callout tip"><b>Assuma a conversa</b> sempre que houver: negociação de valores, demanda concreta de empresa, reclamação ou urgência. A assistente já orienta o cliente a falar com você.</div>
+    </section>
+
+    <section class="bloco" id="modelos">
+      <div class="kicker"><span class="n">6</span> Modelos de mensagem</div>
+      <h2>Scripts prontos para o WhatsApp</h2>
+      <p>Use como ponto de partida e ajuste ao contexto. Clique em "Copiar".</p>
+
+      <div class="tpl">
+        <div class="tpl-h"><b>Primeiro contato — empresa</b><button class="copy">Copiar</button></div>
+        <pre>Olá, [NOME]! Aqui é [SEU NOME], do comercial da Agizze. Recebi seu contato pelo nosso site sobre [necessidade]. Para montar a melhor proposta, me confirma: qual a cidade da operação, quantas vagas e o tipo de contratação? Conseguimos iniciar rápido. Fico à disposição!</pre>
+      </div>
+
+      <div class="tpl">
+        <div class="tpl-h"><b>Follow-up — sem resposta</b><button class="copy">Copiar</button></div>
+        <pre>Oi, [NOME]! Passando para retomar nosso contato sobre a sua operação. Consigo te enviar uma proposta sob medida ainda hoje. Qual o melhor horário para falarmos? — Agizze</pre>
+      </div>
+
+      <div class="tpl">
+        <div class="tpl-h"><b>Candidato — direcionamento</b><button class="copy">Copiar</button></div>
+        <pre>Olá, [NOME]! Que bom seu interesse em fazer parte da Agizze. Cadastre seu currículo no nosso Banco de Talentos (é gratuito) e dá uma olhada nas vagas abertas no portal. Assim que surgir uma oportunidade com o seu perfil, a gente chama. Sucesso!</pre>
+      </div>
+    </section>
+
+    <section class="bloco" id="rotina">
+      <div class="kicker"><span class="n">7</span> Rotina diária</div>
+      <h2>Checklist do comercial</h2>
+      <p>Marque conforme avança. O progresso fica salvo no seu navegador.</p>
+      <div class="check" id="checklist">
+        <label><input type="checkbox" data-k="c1"><span>Abrir o painel de leads no início do expediente</span></label>
+        <label><input type="checkbox" data-k="c2"><span>Responder os novos contatos o quanto antes (meta: dentro de 24h úteis)</span></label>
+        <label><input type="checkbox" data-k="c3"><span>Para empresas: confirmar cidade, nº de vagas, tipo e urgência</span></label>
+        <label><input type="checkbox" data-k="c4"><span>Enviar a proposta sob medida e registrar o andamento</span></label>
+        <label><input type="checkbox" data-k="c5"><span>Para candidatos: direcionar ao Banco de Talentos / portal</span></label>
+        <label><input type="checkbox" data-k="c6"><span>Fazer follow-up dos contatos sem resposta</span></label>
+        <label><input type="checkbox" data-k="c7"><span>Revisar o painel à tarde para novos leads</span></label>
+      </div>
+      <button class="reset" id="resetCheck">Limpar checklist</button>
+    </section>
+
+    <section class="bloco" id="praticas">
+      <div class="kicker"><span class="n">8</span> Boas práticas</div>
+      <h2>O que faz a diferença</h2>
+      <ul class="clean">
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Velocidade.</b> Lead novo é lead quente — responda rápido.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Tom da marca.</b> Destemida, humana, precisa, parceira e ágil. Direto, sem enrolação.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Registre tudo.</b> Use "Copiar conversa" e anote o andamento de cada contato.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Próximo passo claro.</b> Toda conversa termina com um combinado (proposta, horário de retorno, cadastro).</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Privacidade.</b> Use os dados só para o contato. Não compartilhe a senha do painel.</span></li>
+      </ul>
+    </section>
+
+    <section class="bloco" id="faq">
+      <div class="kicker"><span class="n">9</span> Dúvidas</div>
+      <h2>Perguntas frequentes</h2>
+      <details><summary>Esqueci a senha do painel.</summary><p>Peça à gestão. Por segurança, a senha não fica escrita neste manual.</p></details>
+      <details><summary>O lead não mostra telefone. E agora?</summary><p>A pessoa não informou o número no chat. Leia a conversa toda — às vezes há outro contato — ou aguarde: a assistente é orientada a pedir o WhatsApp. Novos contatos costumam vir com telefone.</p></details>
+      <details><summary>Recebi um lead que é candidato, não empresa.</summary><p>Direcione ao Banco de Talentos e ao portal de vagas. A triagem segue com o RH; o comercial foca nas empresas.</p></details>
+      <details><summary>O cliente pediu preço no chat e a IA não passou.</summary><p>Correto — preço é sempre com o comercial. Assuma a conversa e envie a proposta sob medida.</p></details>
+      <details><summary>Atendemos em quais regiões?</summary><p>Em todo o território nacional, com sede em Itajaí/SC.</p></details>
+    </section>
+
+    <section class="bloco" id="links">
+      <div class="kicker"><span class="n">10</span> Links rápidos</div>
+      <h2>Tudo à mão</h2>
+      <div class="links">
+        <a class="lk" href="leads.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg><div><b>Painel de leads</b><span>Receber e responder contatos</span></div></a>
+        <a class="lk" href="index.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><div><b>Site (home)</b><span>O que o cliente vê</span></div></a>
+        <a class="lk" href="vagas.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg><div><b>Portal de vagas</b><span>Vagas abertas</span></div></a>
+        <a class="lk" href="https://wa.me/5547996558404" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-12.4 7.6L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5z"/></svg><div><b>WhatsApp Agizze</b><span>(47) 99655-8404</span></div></a>
+        <a class="lk" href="privacidade.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg><div><b>Política de Privacidade</b><span>LGPD</span></div></a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer><div class="wrap">Agizze · Manual interno do comercial · Oportunidades que movem histórias</div></footer>
+
+<script>
+  // Scrollspy do índice
+  var tocLinks=[].slice.call(document.querySelectorAll('#toc a'));
+  var map={}; tocLinks.forEach(function(a){ map[a.getAttribute('href').slice(1)]=a; });
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ tocLinks.forEach(function(a){a.classList.remove('active');}); if(map[e.target.id]) map[e.target.id].classList.add('active'); } });
+    },{rootMargin:'-30% 0px -60% 0px'});
+    document.querySelectorAll('section.bloco').forEach(function(s){ io.observe(s); });
+  }
+  // fecha o scroll do índice no mobile ao clicar
+  tocLinks.forEach(function(a){ a.addEventListener('click',function(){ tocLinks.forEach(function(x){x.classList.remove('active');}); a.classList.add('active'); }); });
+
+  // Copiar modelos
+  document.querySelectorAll('.tpl').forEach(function(t){
+    var btn=t.querySelector('.copy'), pre=t.querySelector('pre');
+    btn.addEventListener('click',function(){
+      var txt=pre.textContent;
+      if(navigator.clipboard){ navigator.clipboard.writeText(txt); }
+      var o=btn.textContent; btn.textContent='Copiado!'; setTimeout(function(){ btn.textContent=o; },1500);
+    });
+  });
+
+  // Checklist com persistência
+  var boxes=[].slice.call(document.querySelectorAll('#checklist input'));
+  boxes.forEach(function(b){
+    var k='agz_chk_'+b.getAttribute('data-k');
+    b.checked = localStorage.getItem(k)==='1';
+    b.closest('label').classList.toggle('done', b.checked);
+    b.addEventListener('change',function(){
+      localStorage.setItem(k, b.checked?'1':'0');
+      b.closest('label').classList.toggle('done', b.checked);
+    });
+  });
+  document.getElementById('resetCheck').addEventListener('click',function(){
+    boxes.forEach(function(b){ b.checked=false; localStorage.setItem('agz_chk_'+b.getAttribute('data-k'),'0'); b.closest('label').classList.remove('done'); });
+  });
+</script>
+</body>
+</html>
